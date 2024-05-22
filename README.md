@@ -1,8 +1,8 @@
 # Voyage_Stoique | Version : V0.1.0 - Hypothesis
 
-[![DeepScan grade](https://deepscan.io/api/teams/23515/projects/27286/branches/870934/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=23515&pid=27286&bid=870934)
+[![DeepScan grade](https://deepscan.io/api/teams/23515/projects/27287/branches/870938/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=23515&pid=27287&bid=870938)
 
-[![Known Vulnerabilities](https://snyk.io/test/github/CedricTheveneau/Voyage_Stoique-Back/badge.svg)](https://snyk.io/test/github/CedricTheveneau/Voyage_Stoique-Back)
+[![Known Vulnerabilities](https://snyk.io/test/github/CedricTheveneau/Voyage_Stoique-Front/badge.svg)](https://snyk.io/test/github/CedricTheveneau/Voyage_Stoique-Front)
 
 [Voyage Stoïque](https://github.com/CedricTheveneau/Voyage_Stoique/) is a philosophy oriented blog I created as part of my finals | graduation project as a Full-Stack developper.
 
