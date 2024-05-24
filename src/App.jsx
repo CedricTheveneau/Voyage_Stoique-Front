@@ -1,14 +1,42 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
+
 import "./App.css";
 
 function App() {
   const [count, setCount] = useState(0);
 
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(import.meta.env.VITE_API_URL);
+      if (!response.ok) {
+        throw new Error("Network response was not ok " + response.statusText);
+      }
+      const result = await response.json();
+      console.log(response);
+      setData(result);
+    } catch (error) {
+      setError(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
     <>
       <div>
+        <p>
+          {data
+            ? JSON.stringify(data)
+            : error
+            ? `Error: ${error}`
+            : "Loading..."}
+        </p>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
