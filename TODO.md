@@ -1,0 +1,2 @@
+- [ ] Review data that is sent and its format.
+- [ ] Review the .env file, the api uri might be wrong.

@@ -1,0 +1,1 @@
+// Thinking corner post page content
