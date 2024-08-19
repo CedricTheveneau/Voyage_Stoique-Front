@@ -1,47 +1,36 @@
-# Voyage_Stoique | Version : V0.1.0 - Hypothesis
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-[![DeepScan grade](https://deepscan.io/api/teams/23515/projects/27287/branches/870938/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=23515&pid=27287&bid=870938)
+## Getting Started
 
-[![Known Vulnerabilities](https://snyk.io/test/github/CedricTheveneau/Voyage_Stoique-Front/badge.svg)](https://snyk.io/test/github/CedricTheveneau/Voyage_Stoique-Front)
+First, run the development server:
 
-[Voyage Stoïque](https://github.com/CedricTheveneau/Voyage_Stoique/) is a philosophy oriented blog I created as part of my finals | graduation project as a Full-Stack developper.
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-## Discord server :
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-Join the Discord server by using [this invite link](https://discord.gg/URGXAVbPYj) !
+You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
-## Description :
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-Voyage Stoïque is a blog on which I post articles about my journey to becoming a stoicist.
+## Learn More
 
-People will be able to read, listen to and react to them via comments.
+To learn more about Next.js, take a look at the following resources:
 
-The platform also includes a Reddit social media-like section in which people will be able to post their meditations, detailed reactions to articles or simply ask questions.
-Just like with my articles, they will be able to comment on them and interact with other members of the community.
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-Community driven events will be implemented with profile rewards such as badges to be earned to create engagement.
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Languages used :
+## Deploy on Vercel
 
-- The front-end of the application uses [React](https://fr.react.dev/) without TypeScript and my very own components library : [Lightning UI](https://cedrictheveneau.github.io/Lightning_UI/)
-- The back-end of the application uses [Node.js](https://nodejs.org/en) with [Express.js](https://expressjs.com/), paired with a [MongoDB](https://www.mongodb.com/) database, managed via [MongoDB Atlas](https://www.mongodb.com/docs/atlas/).
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-## Do I need an account ?
-
-You won't need an account to access Voyage Stoïque's content. It was intended from the start that all of Voyage Stoïque's ressources would be available easily to every one.
-
-Though, to interact with the community and publish your own content on the platform, it will be required from you to have an account and be logged in, to be able to monitor the platform easily.
-
-## Credits :
-
-I've worked alone on this project, if you have any request, question, suggestion, feedback, feel free to contact me using the [Contact page](https://github.com/CedricTheveneau/Voyage_Stoique/Contact). I've written every single line of code from this project. Everything there is to know about this project is written in the [About](https://github.com/CedricTheveneau/Voyage_Stoique/About) and [Legals](https://github.com/CedricTheveneau/Voyage_Stoique/Legals) pages. But you can always ask me directly if needed.
-
-## License :
-
-For now, no license has been selected for the project, so I kindly ask you not to copy anything from the project.
-
-## Dependencies licenses and notices :
-
-It must be noted, though, that Lightning UI uses an [MIT License](./LICENSE.md), which means you can pretty much do anything with it, as long as you keep the original LICENSE.md and NOTICE.md files into your project which uses the library and respect the terms of use mentionned in them.
-
-When using Lightning UI, you need to keep in your project both the LICENSE.md and NOTICE.md files that were given with the library. I recommend updating the NOTICE.md file when you use the library, it's a good practice to keep track of what is used in your project. For example, if you build a React app, you can add it to the NOTICE.md file, above the "Lightning UI" section heading.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
