@@ -1,7 +1,7 @@
 import Image from "next/image";
 import styles from "../page.module.css";
 import Link from "next/link";
-const apiGateway = process.env.NEXT_PUBLIC_API_GATEWAY_URI;
+// const apiGateway = process.env.NEXT_PUBLIC_API_GATEWAY_URI;
 
 export default function Header() {
  return (
@@ -11,8 +11,8 @@ export default function Header() {
               className={styles.logoDark} src="../../public/next.svg" alt="Lightning UI Logo" width="50" height="101"/>
           <div className={styles.branding}>
               <h1>Lightning UI</h1><span>|</span>
-              <p>V2.0.0 - <a href="https://www.weather.gov/otx/Glossary_of_Weather_Terms"
-                      title="Discover the version name's meaning">Jet Stream</a></p>
+              <p>V2.0.0 - <Link href="https://www.weather.gov/otx/Glossary_of_Weather_Terms"
+                      title="Discover the version name's meaning">Jet Stream</Link></p>
           </div>
       </div>
       <script async
@@ -56,9 +56,9 @@ export default function Header() {
                               d="M6.16632 18.8943C6.45921 18.6014 6.45921 18.1265 6.16632 17.8336C5.87342 17.5407 5.39855 17.5407 5.10566 17.8336L4.39855 18.5407C4.10566 18.8336 4.10566 19.3085 4.39855 19.6014C4.69144 19.8943 5.16632 19.8943 5.45921 19.6014L6.16632 18.8943Z"
                               fill="black" />
                       </svg></button></li>
-              <li><a href="./" className={styles.link} title="Access the home page">Blog</a></li><span
+              <li><Link href="./" className={styles.link} title="Access the home page">Blog</Link></li><span
                   className={styles.navbarSeparator}>|</span>
-              <li><a href="./pages/news.html" className={styles.link} title="Access the news page">Thinking Corner</a></li><span
+              <li><Link href="./pages/news.html" className={styles.link} title="Access the news page">Thinking Corner</Link></li><span
                   className={styles.navbarSeparator}>|</span>
               <li><stripe-buy-button
   buy-button-id="buy_btn_1Q3DymP4ZqlfMn4IECVmRjxv"
