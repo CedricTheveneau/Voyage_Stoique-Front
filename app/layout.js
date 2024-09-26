@@ -1,5 +1,9 @@
 import { Inter } from "next/font/google";
+import Header from "./layout/Header";
 import "./globals.css";
+import Socials from "./layout/Socials";
+import Overflay from "./layout/Overflay";
+import { GoogleTagManager, GoogleAnalytics } from '@next/third-parties/google'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -10,8 +14,15 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="fr">
+      <GoogleTagManager gtmId="GTM-P7393CN8" gtmScriptUrl="https://www.googletagmanager.com/ns.html?id=GTM-P7393CN8"/>
+      <GoogleAnalytics gaId="G-MPHCTBGYHE" />
+      <body className={inter.className}>
+      <Socials/>
+      <Overflay/>
+      <Header/>
+      {children}
+      </body>
     </html>
   );
 }
