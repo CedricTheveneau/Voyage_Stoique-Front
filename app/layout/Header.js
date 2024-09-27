@@ -1,32 +1,28 @@
 import Image from "next/image";
-import styles from "../page.module.css";
 import Link from "next/link";
 // const apiGateway = process.env.NEXT_PUBLIC_API_GATEWAY_URI;
 
 export default function Header() {
  return (
-  <header className={styles.header}>
+  <header className="header">
   <nav>
-      <div className={styles.logo}><Image className={styles.logoLight} src="../../public/next.svg" alt="Lightning UI Logo" width="50" height="101"/> <Image
-              className={styles.logoDark} src="../../public/next.svg" alt="Lightning UI Logo" width="50" height="101"/>
-          <div className={styles.branding}>
+      <div className="logo"><Image className="logoLight" src="../../public/next.svg" alt="Lightning UI Logo" width="50" height="101"/> <Image
+              className="logoDark" src="../../public/next.svg" alt="Lightning UI Logo" width="50" height="101"/>
+          <div className="branding">
               <h1>Lightning UI</h1><span>|</span>
               <p>V2.0.0 - <Link href="https://www.weather.gov/otx/Glossary_of_Weather_Terms"
                       title="Discover the version name's meaning">Jet Stream</Link></p>
           </div>
       </div>
-      <script async
-  src="https://js.stripe.com/v3/buy-button.js">
-</script>
-      <div className={styles.navbar}>
-          <ul className={styles.links}>
-              <li><button className={styles.darkModeToggle} aria-label="Dark mode toggle"><svg alt="Dark mode - moon"
-                          className={styles.darkModeToggleSVG} id="moon" width="24" height="24" viewBox="0 0 24 24"
+      <div className="navbar">
+          <ul className="links">
+              <li><button className="darkModeToggle" aria-label="Dark mode toggle"><svg alt="Dark mode - moon"
+                          className="darkModeToggleSVG" id="moon" width="24" height="24" viewBox="0 0 24 24"
                           fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path fillRule="evenodd" clipRule="evenodd"
                               d="M11.4863 4.76792C7.72194 5.03144 4.75 8.16865 4.75 12C4.75 16.0041 7.99594 19.25 12 19.25C15.2079 19.25 17.9297 17.1662 18.8848 14.2787C18.1497 14.5824 17.3441 14.75 16.5 14.75C13.0482 14.75 10.25 11.9518 10.25 8.5C10.25 7.10086 10.7101 5.80909 11.4863 4.76792ZM3.25 12C3.25 7.16751 7.16751 3.25 12 3.25C12.4496 3.25 12.8918 3.28398 13.3239 3.34962C13.6229 3.39503 13.8654 3.61553 13.9388 3.90886C14.0123 4.20219 13.9025 4.51095 13.6602 4.69194C12.4992 5.55935 11.75 6.94208 11.75 8.5C11.75 11.1234 13.8766 13.25 16.5 13.25C17.6342 13.25 18.6738 12.8534 19.4905 12.1906C19.7252 12.0002 20.0513 11.9692 20.3176 12.1121C20.584 12.255 20.7386 12.5437 20.7097 12.8446C20.2843 17.2812 16.5477 20.75 12 20.75C7.16751 20.75 3.25 16.8325 3.25 12Z"
                               fill="#deff0a" />
-                      </svg> <svg alt="Light mode - sun" className={styles.darkModeToggleSVGtoggle} id="sun" width="24"
+                      </svg> <svg alt="Light mode - sun" className="darkModeToggleSVGtoggle" id="sun" width="24"
                           height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path
                               d="M12 1.25C12.4142 1.25 12.75 1.58579 12.75 2V3C12.75 3.41421 12.4142 3.75 12 3.75C11.5858 3.75 11.25 3.41421 11.25 3V2C11.25 1.58579 11.5858 1.25 12 1.25Z"
@@ -56,10 +52,10 @@ export default function Header() {
                               d="M6.16632 18.8943C6.45921 18.6014 6.45921 18.1265 6.16632 17.8336C5.87342 17.5407 5.39855 17.5407 5.10566 17.8336L4.39855 18.5407C4.10566 18.8336 4.10566 19.3085 4.39855 19.6014C4.69144 19.8943 5.16632 19.8943 5.45921 19.6014L6.16632 18.8943Z"
                               fill="black" />
                       </svg></button></li>
-              <li><Link href="./" className={styles.link} title="Access the home page">Blog</Link></li><span
-                  className={styles.navbarSeparator}>|</span>
-              <li><Link href="./pages/news.html" className={styles.link} title="Access the news page">Thinking Corner</Link></li><span
-                  className={styles.navbarSeparator}>|</span>
+              <li><Link href="./" className="link" title="Access the home page">Blog</Link></li><span
+                  className="navbarSeparator">|</span>
+              <li><Link href="./pages/news.html" className="link" title="Access the news page">Thinking Corner</Link></li><span
+                  className="navbarSeparator">|</span>
               <li><stripe-buy-button
   buy-button-id="buy_btn_1Q3DymP4ZqlfMn4IECVmRjxv"
   publishable-key="pk_test_51Q3DR9P4ZqlfMn4IryVT6prEVuMJIJCUChHNh6SSPLBDI7UAcy2mtW3Nf9WJwJYBhSMc3zPBBQZSmBDTEbYBLdKa00LBY8OyiV"
