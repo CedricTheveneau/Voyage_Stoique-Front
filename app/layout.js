@@ -3,6 +3,7 @@ import "./globals.css";
 import Socials from "./layout/Socials";
 import Overflay from "./layout/Overflay";
 import { GoogleTagManager, GoogleAnalytics } from '@next/third-parties/google'
+import ClientScripts from "./ClientScripts";
 
 export const metadata = {
   title: "Voyage Stoïque | La philosophie pour tous.",
@@ -22,6 +23,7 @@ export default function RootLayout({ children }) {
       <script async
   src="https://js.stripe.com/v3/buy-button.js">
 </script>
+<ClientScripts />
       </body>
     </html>
   );
