@@ -28,7 +28,6 @@ document.addEventListener("DOMContentLoaded", function () {
      document.querySelector("header").style.backgroundColor = "transparent";
    }
  });
- 364;
 
  //! ---------- SCROll ARROWS ---------- !//
 
