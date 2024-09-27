@@ -1,12 +1,10 @@
-
-import styles from "../page.module.css";
 import Link from "next/link";
 
 export default function Socials() {
  return (
-  <div className={styles.socials}>
+  <div className="socials">
   <p>Follow us !</p>
-  <div className={styles.icons}><Link id="DiscordSocials" href="https://discord.gg/URGXAVbPYj"
+  <div className="icons"><Link id="DiscordSocials" href="https://discord.gg/URGXAVbPYj"
           title="Join our Discord server"><svg alt="Discord logo" width="39" height="40" viewBox="0 0 39 40"
               fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
