@@ -41,7 +41,7 @@ export default function Profile({ params }) {
         const registrationDate = new Date(user.registrationDate);
         const day = registrationDate.getDate();
         let month = registrationDate.getMonth() + 1; // Les mois commencent à 0
-        month.toString().padStart(2, "0");
+        month = month.toString().padStart(2, "0");
         const year = registrationDate.getFullYear();
         setCleanRegistrationDate(`${day}/${month}/${year}`);
       }
