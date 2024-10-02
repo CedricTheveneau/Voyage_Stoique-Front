@@ -48,7 +48,7 @@ export default function SignUp() {
       <h2>Créer un compte</h2>
       <form onSubmit={handleSubmit}>
         <div className="formLine">
-      <label for="username" >Votre pseudo</label>
+      <label htmlFor="username" >Votre pseudo</label>
       <input
         id="username"
           type="text"
@@ -58,7 +58,7 @@ export default function SignUp() {
         />
         </div>
         <div className="formLine">
-        <label for="email" >Votre adresse email</label>
+        <label htmlFor="email" >Votre adresse email</label>
         <input
         id="email"
           type="email"
@@ -68,7 +68,7 @@ export default function SignUp() {
         />
         </div>
         <div className="formLine">
-        <label for="password" >Votre mot de passe</label>
+        <label htmlFor="password" >Votre mot de passe</label>
         <input
         id="password"
           type="password"
@@ -78,7 +78,7 @@ export default function SignUp() {
         />
         </div>
         <div className="formLine">
-        <label for="birthday" >Votre date de naissance <br/><span>&#40;elle sera utilisée afin de vous protéger de contenu sensible si vous êtes mineur&#41;</span></label>
+        <label htmlFor="birthday" >Votre date de naissance <br/><span>&#40;elle sera utilisée afin de vous protéger de contenu sensible si vous êtes mineur&#41;</span></label>
         <input
         id="birthday"
           type="date"
@@ -88,7 +88,7 @@ export default function SignUp() {
         />
         </div>
         <div className="formLine">
-        <label for="newsSubscription" >Souhaitez-vous être abonné aux newsletters hebdomadaires ? <br/><span>&#40;Cochez la case si vous le souhaitez&#41;</span></label>
+        <label htmlFor="newsSubscription" >Souhaitez-vous être abonné aux newsletters hebdomadaires ? <br/><span>&#40;Cochez la case si vous le souhaitez&#41;</span></label>
         <input
         id="newsSubscription"
           type="checkbox"

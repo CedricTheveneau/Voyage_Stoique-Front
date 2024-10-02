@@ -37,17 +37,17 @@ export default function Profile({ params }) {
   useEffect(() => {
     if (user) {
       // Formater la date d'enregistrement
-      if (user && user.registrationDate) {
+      if (user.registrationDate) {
         const registrationDate = new Date(user.registrationDate);
         const day = registrationDate.getDate();
-        const month = registrationDate.getMonth() + 1; // Les mois commencent à 0
+        let month = registrationDate.getMonth() + 1; // Les mois commencent à 0
         month.toString().padStart(2, "0");
         const year = registrationDate.getFullYear();
         setCleanRegistrationDate(`${day}/${month}/${year}`);
       }
 
       // Formater la date de dernière connexion
-      if (user && user.lastConnected) {
+      if (user.lastConnected) {
        const now = new Date();
        const lastConnectedDate = new Date(user.lastConnected);
        const diffInMillis = now - lastConnectedDate;

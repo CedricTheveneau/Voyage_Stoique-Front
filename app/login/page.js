@@ -8,7 +8,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
-  const { userId, setIsAuthenticated, setUserId } = useGlobalContext();
+  const { setIsAuthenticated, setUserId } = useGlobalContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,7 +55,7 @@ export default function Login() {
       <form onSubmit={handleSubmit}>
         
         <div className="formLine">
-        <label for="email" >Votre adresse email</label>
+        <label htmlFor="email" >Votre adresse email</label>
         <input
         id="email"
           type="email"
@@ -65,7 +65,7 @@ export default function Login() {
         />
         </div>
         <div className="formLine">
-        <label for="password" >Votre mot de passe</label>
+        <label htmlFor="password" >Votre mot de passe</label>
         <input
         id="password"
           type="password"
