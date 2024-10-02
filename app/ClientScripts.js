@@ -1,4 +1,4 @@
-"use client"; // Indique que ce composant fonctionne côté client
+"use client";
 
 import Script from "next/script";
 
@@ -11,7 +11,7 @@ export default function ClientScripts() {
       />
 
       <Script
-        src="./lightning-ui.js"
+        src="../lightning-ui.js"
         strategy="lazyOnload"
       />
     </>

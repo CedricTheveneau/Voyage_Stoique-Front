@@ -162,6 +162,16 @@ p>span {
 }
 
 /**todo---------- Light theme style ----------todo**/
+body:has(.signup), body:has(.login) {
+  >.socials {
+    display: none !important;
+  }
+
+  >.overflay {
+    display: none !important;
+  }
+}
+
 body {
   background-color: var(--themeLight);
   color: var(--themeDark);
@@ -457,6 +467,9 @@ body {
               background-color: transparent;
               font-size: var(--textSize);
               font-weight: var(--textWeight);
+              display: flex;
+    align-items: center;
+    justify-content: center;
 
               >a {
                 color: var(--themeLight);
@@ -519,6 +532,52 @@ body {
             position: relative;
             display: grid;
             align-items: center;
+            >ul.dropdown {
+              width: fit-content;
+              >li {
+              >form > button {
+                padding: 5px;
+                border: transparent;
+                background-color: transparent;
+                font-size: var(--textSize);
+                font-weight: var(--textWeight);
+                  color: var(--themeLight);
+                  font-weight: var(--h3Weight);
+                  font-style: italic;
+                  position: relative;
+                  transition: color 250ms ease-in-out;
+                  --afterColor2: var(--themeAccent);
+              }
+  
+              >form >button:hover,
+              >form >button:active {
+                color: var(--themeDark);
+              }
+  
+              >form >button::after {
+                content: "";
+                                left: -5%;
+                                top: -5%;
+                                width: 110%;
+                                height: 120%;
+                                transform: skew(calc(var(--skew)* -1));
+                                position: absolute;
+                                background-color: var(--afterColor2);
+                                scale: 1;
+                                transition: height .25s ease-in-out, top .25s ease-in-out, left .25s ease-in-out, width .25s ease-in-out;
+                                z-index: -1;
+              }
+  
+              >form >button:hover::after,
+              >form > button:active::after {
+                height: 4px;
+                top: 120%;
+                left: 0%;
+                width: 100%;
+              }
+            }
+            } 
+            
           }
 
           >li:has(ul.dropdown):hover {
@@ -2061,6 +2120,121 @@ body {
     }
   }
 
+  >main.signup,
+  main.login {
+    height: 100dvh;
+    width: 100dvw;
+    padding: 15dvw;
+    display: grid;
+    gap: 20px;
+    justify-items: center;
+    align-content: center;
+
+    >form {
+      display: grid;
+      gap: 15px;
+
+      >.formLine {
+        display: grid;
+        gap: 10px;
+
+        >label>span {
+          font-weight: calc(var(--textWeight)* 0.809);
+          color: var(--themeDark50);
+          font-size: calc(var(--textSize)* 0.809);
+        }
+
+        >input {
+          border: transparent;
+          border-bottom: 2px solid var(--themeAccent);
+          padding: 10px;
+        }
+
+        >input#newsSubscription {
+          width: fit-content;
+        }
+      }
+
+      >button {
+        width: fit-content;
+        padding: 0px 5px;
+        margin: 30px auto 0px;
+        border: transparent;
+        background-color: transparent;
+        font-size: calc(var(--h2Size) * 0.7);
+        font-weight: var(--h3Weight);
+        color: var(--themeDark);
+        font-weight: var(--h3Weight);
+        font-style: italic;
+        position: relative;
+        transition: color 250ms 250ms ease-in-out;
+
+
+        >svg {
+          >path {
+            fill: var(--themeDark);
+            scale: 0.7;
+            transform: translateY(35%) translateX(25%);
+            transition: fill 250ms 250ms ease-in-out;
+          }
+        }
+      }
+
+      >button:hover,
+      button:active,
+      button:hover path,
+      button:active path {
+        color: var(--themeLight);
+        fill: var(--themeLight);
+      }
+
+      >button::after {
+        content: "";
+        left: -5%;
+        top: -20%;
+        width: 110%;
+        height: 150%;
+        transform: skew(calc(var(--skew) * -1));
+        position: absolute;
+        border: 3px solid var(--themeAccent);
+        background-color: var(--themeLight);
+        scale: 1;
+        transition: background-color 250ms 250ms ease-in-out;
+        z-index: -1;
+      }
+
+      >button:hover::after,
+      button:active::after {
+        background-color: var(--themeAccent);
+      }
+
+      >button::before {
+        content: "";
+        left: 0%;
+        top: 0%;
+        width: 110%;
+        height: 150%;
+        transform: skew(calc(var(--skew) * -1));
+        position: absolute;
+        border: 3px solid var(--themeAccent);
+        background-color: var(--themeAccent);
+        scale: 1;
+        transition: top 250ms ease-in-out, left 250ms ease-in-out,
+          width 250ms ease-in-out;
+        z-index: -1;
+      }
+
+      >button:hover::before,
+      button:active::before {
+        left: -5%;
+        top: -20%;
+        width: 100%;
+        transition: top 250ms ease-in-out, left 250ms ease-in-out,
+          width 250ms ease-in-out;
+      }
+    }
+  }
+
   >footer {
     >nav {
       padding-block: 10px;
@@ -2673,11 +2847,11 @@ svg.ctaArrow {
   animation: ctaArrowWiggle 1500ms ease-out infinite;
 }
 
-a:hover>svg.ctaArrow {
+a:hover>svg.ctaArrow, button:hover>svg.ctaArrow {
   animation: ctaArrowFlash 800ms ease-out infinite;
 }
 
-a:hover>svg.ctaArrow.pulse {
+a:hover>svg.ctaArrow.pulse, button:hover>svg.ctaArrow.pulse {
   animation: ctaArrowPulse 800ms ease-out infinite;
 }
 
@@ -2686,33 +2860,33 @@ a:hover>svg.ctaArrow.pulse {
 
   0%,
   100% {
-    transform: translateX(0) translateY(20%);
+    transform: translateX(0) translateY(5%);
   }
 
   50% {
-    transform: translateX(5%) translateY(20%);
+    transform: translateX(5%) translateY(5%);
   }
 }
 
 @keyframes ctaArrowFlash {
   0% {
     transform-origin: left center;
-    transform: scaleX(0) translateY(20%);
+    transform: scaleX(0) translateY(5%);
   }
 
   25% {
     transform-origin: left center;
-    transform: scaleX(1) translateY(20%);
+    transform: scaleX(1) translateY(5%);
   }
 
   75% {
     transform-origin: right center;
-    transform: scaleX(1) translateY(20%);
+    transform: scaleX(1) translateY(5%);
   }
 
   100% {
     transform-origin: right center;
-    transform: scaleX(0) translateY(20%);
+    transform: scaleX(0) translateY(5%);
   }
 }
 
