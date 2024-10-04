@@ -29,16 +29,12 @@
   --heroSize: 95.95px;
   --heroWeight: var(--h1Weight);
   --heroLineHeight: 90px;
-  --heroOutline: 4px;
   --h1Size: 59.3px;
   --h1Weight: 900;
-  --h1Outline: 4px;
   --h2Size: 36.65px;
   --h2Weight: 700;
-  --h2Outline: 3px;
   --h3Size: 22.65px;
   --h3Weight: 600;
-  --h3Outline: 1px;
   --textSize: 16px;
   --textWeight: 500;
   --textLineHeight: 25px;
@@ -100,48 +96,23 @@ h2,
 h3 {
   font-family: var(--oswald), sans-serif;
   font-style: italic;
-  /* text-transform: uppercase; */
 }
 
 h1 {
   font-size: var(--h1Size);
   font-weight: var(--h1Weight);
-  --textOutline: var(--h1Outline);
-  --textShadow: 6px;
-  text-shadow: calc(var(--textOutline) / 2) calc(var(--textOutline) / 2) 0 var(--themeAccent),
-    calc((var(--textOutline) / 2) * -1) calc((var(--textOutline) / 2) * -1) 0 var(--themeAccent),
-    calc(var(--textOutline) / 2) calc((var(--textOutline) / 2) * -1) 0 var(--themeAccent),
-    calc((var(--textOutline) / 2) * -1) calc(var(--textOutline) / 2) 0 var(--themeAccent),
-    calc(var(--textOutline) / 2) calc(var(--textOutline) / 2) 0 var(--themeAccent),
-    var(--textShadow) var(--textShadow) 0px var(--themeDark);
 }
 
 h2 {
   font-size: var(--h2Size);
   font-weight: var(--h2Weight);
   color: var(--themeDark);
-  /* --textOutline: var(--h2Outline);
-  --textShadow: 4px;
-    text-shadow: calc(var(--textOutline) / 2) calc(var(--textOutline) / 2) 0 var(--themeAccent),
-    calc((var(--textOutline) / 2) * -1) calc((var(--textOutline) / 2) * -1) 0 var(--themeAccent),
-    calc(var(--textOutline) / 2) calc((var(--textOutline) / 2) * -1) 0 var(--themeAccent),
-    calc((var(--textOutline) / 2) * -1) calc(var(--textOutline) / 2) 0 var(--themeAccent),
-    calc(var(--textOutline) / 2) calc(var(--textOutline) / 2) 0 var(--themeAccent),
-    var(--textShadow) var(--textShadow) 0px var(--themeDark); */
 }
 
 h3 {
   font-size: var(--h3Size);
   font-weight: var(--h3Weight);
   color: var(--themeDark);
-  /* --textOutline: var(--h3Outline);
-  --textShadow: 2px;
-  text-shadow: calc(var(--textOutline) / 2) calc(var(--textOutline) / 2) 0 var(--themeAccent),
-    calc((var(--textOutline) / 2) * -1) calc((var(--textOutline) / 2) * -1) 0 var(--themeAccent),
-    calc(var(--textOutline) / 2) calc((var(--textOutline) / 2) * -1) 0 var(--themeAccent),
-    calc((var(--textOutline) / 2) * -1) calc(var(--textOutline) / 2) 0 var(--themeAccent),
-    calc(var(--textOutline) / 2) calc(var(--textOutline) / 2) 0 var(--themeAccent),
-    var(--textShadow) var(--textShadow) 0px var(--themeDark); */
 }
 
 p,
@@ -301,11 +272,6 @@ body {
         justify-content: flex-start;
         gap: 10px;
 
-        >img {
-          width: 25px;
-          height: 42px;
-        }
-
         >.logoDark {
           display: none;
         }
@@ -316,15 +282,7 @@ body {
           gap: 15px;
 
           >h1 {
-            --textOutline: calc(var(--heroOutline) / calc(var(--goldenRatio) * 2));
-            --textShadow: 3px;
             font-size: var(--h3Size);
-            text-shadow: calc(var(--textOutline) / 2) calc(var(--textOutline) / 2) 0 var(--themeAccent),
-              calc((var(--textOutline) / 2) * -1) calc((var(--textOutline) / 2) * -1) 0 var(--themeAccent),
-              calc(var(--textOutline) / 2) calc((var(--textOutline) / 2) * -1) 0 var(--themeAccent),
-              calc((var(--textOutline) / 2) * -1) calc(var(--textOutline) / 2) 0 var(--themeAccent),
-              calc(var(--textOutline) / 2) calc(var(--textOutline) / 2) 0 var(--themeAccent),
-              var(--textShadow) var(--textShadow) 0px var(--themeDark);
           }
 
           >svg {
@@ -417,13 +375,17 @@ body {
 
                 >a {
                   margin: auto;
-                  color: var(--themeDark);
+                  color: var(--themeLight);
                   font-weight: var(--h3Weight);
                   /* font-style: italic; */
                   position: relative;
                   --afterColor: var(--themeDark);
                   --transform-origin: right center;
                   --transform-origin-alt: left center;
+                }
+
+                >a:hover {
+                  color: var(--themeDark);
                 }
 
                 >a::after {
@@ -436,7 +398,7 @@ body {
                   /* border-radius: 10px; */
                   transform: skew(calc(var(--skew) * -1));
                   position: absolute;
-                  background-color: var(--themeLight);
+                  background-color: var(--afterColor);
                   scale: 0;
                   transform-origin: var(--transform-origin);
                   transition: scale 250ms ease-in-out;
@@ -546,7 +508,9 @@ body {
                   font-style: italic;
                   position: relative;
                   transition: color 250ms ease-in-out;
-                  --afterColor2: var(--themeAccent);
+                  --afterColor: var(--themeDark);
+                  --transform-origin: right center;
+                  --transform-origin-alt: left center;
               }
   
               >form >button:hover,
@@ -556,24 +520,24 @@ body {
   
               >form >button::after {
                 content: "";
-                                left: -5%;
-                                top: -5%;
-                                width: 110%;
-                                height: 120%;
-                                transform: skew(calc(var(--skew)* -1));
-                                position: absolute;
-                                background-color: var(--afterColor2);
-                                scale: 1;
-                                transition: height .25s ease-in-out, top .25s ease-in-out, left .25s ease-in-out, width .25s ease-in-out;
-                                z-index: -1;
+                inset: 0;
+                height: 4px;
+                width: 100%;
+                top: 120%;
+                left: -10%;
+                /* border-radius: 10px; */
+                transform: skew(calc(var(--skew) * -1));
+                position: absolute;
+                background-color: var(--afterColor);
+                scale: 0;
+                transform-origin: var(--transform-origin);
+                transition: scale 250ms ease-in-out;
               }
   
               >form >button:hover::after,
               >form > button:active::after {
-                height: 4px;
-                top: 120%;
-                left: 0%;
-                width: 100%;
+                transform-origin: var(--transform-origin-alt);
+                  scale: 1;
               }
             }
             } 
@@ -631,18 +595,10 @@ body {
 
         >h2,
         h1 {
-          --textOutline: var(--heroOutline);
-          --textShadow: 6px;
           font-size: var(--heroSize);
           font-weight: var(--heroWeight);
           line-height: var(--heroLineHeight);
           text-transform: uppercase;
-          text-shadow: calc(var(--textOutline) / 2) calc(var(--textOutline) / 2) 0 var(--themeAccent),
-            calc((var(--textOutline) / 2) * -1) calc((var(--textOutline) / 2) * -1) 0 var(--themeAccent),
-            calc(var(--textOutline) / 2) calc((var(--textOutline) / 2) * -1) 0 var(--themeAccent),
-            calc((var(--textOutline) / 2) * -1) calc(var(--textOutline) / 2) 0 var(--themeAccent),
-            calc(var(--textOutline) / 2) calc(var(--textOutline) / 2) 0 var(--themeAccent),
-            var(--textShadow) var(--textShadow) 0px var(--themeDark);
         }
 
         >p {
@@ -760,18 +716,10 @@ body {
 
               >h2,
               h1 {
-                --textOutline: var(--heroOutline);
-                --textShadow: 6px;
                 font-size: var(--heroSize);
                 font-weight: var(--heroWeight);
                 line-height: var(--heroLineHeight);
                 text-transform: uppercase;
-                text-shadow: calc(var(--textOutline) / 2) calc(var(--textOutline) / 2) 0 var(--themeAccent),
-                  calc((var(--textOutline) / 2) * -1) calc((var(--textOutline) / 2) * -1) 0 var(--themeAccent),
-                  calc(var(--textOutline) / 2) calc((var(--textOutline) / 2) * -1) 0 var(--themeAccent),
-                  calc((var(--textOutline) / 2) * -1) calc(var(--textOutline) / 2) 0 var(--themeAccent),
-                  calc(var(--textOutline) / 2) calc(var(--textOutline) / 2) 0 var(--themeAccent),
-                  var(--textShadow) var(--textShadow) 0px var(--themeDark);
               }
 
               >p {
@@ -2250,11 +2198,6 @@ body {
         justify-content: flex-start;
         gap: 10px;
 
-        >img {
-          width: 25px;
-          height: 42px;
-        }
-
         >.logoDark {
           display: none;
         }
@@ -2265,15 +2208,7 @@ body {
           gap: 15px;
 
           >h1 {
-            --textOutline: calc(var(--heroOutline) / calc(var(--goldenRatio) * 2));
-            --textShadow: 3px;
             font-size: var(--h3Size);
-            text-shadow: calc(var(--textOutline) / 2) calc(var(--textOutline) / 2) 0 var(--themeAccent),
-              calc((var(--textOutline) / 2) * -1) calc((var(--textOutline) / 2) * -1) 0 var(--themeAccent),
-              calc(var(--textOutline) / 2) calc((var(--textOutline) / 2) * -1) 0 var(--themeAccent),
-              calc((var(--textOutline) / 2) * -1) calc(var(--textOutline) / 2) 0 var(--themeAccent),
-              calc(var(--textOutline) / 2) calc(var(--textOutline) / 2) 0 var(--themeAccent),
-              var(--textShadow) var(--textShadow) 0px var(--themeDark);
           }
 
           >svg {
@@ -2416,15 +2351,16 @@ body {
 
 /**todo---------- Dark theme style ----------todo**/
 body.dark {
-  --themeLight: #03001f;
-  --themeLight50: #03001f80;
-  --themeLight10: #03001f4A;
-  --themeDark: #ebfcfb;
-  --themeDark50: #ebfcfb80;
-  --themeDark10: #ebfcfb4A;
-  --themeAccent: #deff0a;
-  --themeAccent50: #deff0a80;
-  --themeAccent10: #deff0a4A;
+  --themeLight: #141414;
+  --themeLight80: #141414CC;
+  --themeLight70: #141414B3;
+  --themeLight50: #14141480;
+  --themeLight10: #1414144A;
+  --themeDark: #F9F9F9;
+  --themeDark80: #F9F9F9CC;
+  --themeDark70: #F9F9F9B3;
+  --themeDark50: #F9F9F980;
+  --themeDark10: #F9F9F94A;
 
   h1 {
     color: var(--themeLight);
@@ -3122,16 +3058,12 @@ a:hover>svg.ctaArrow.pulse, button:hover>svg.ctaArrow.pulse {
     --heroSize: 42.75px;
     --heroWeight: var(--h1Weight);
     --heroLineHeight: 45px;
-    --heroOutline: 3px;
     --h1Size: 26.42px;
     --h1Weight: 900;
-    --h1Outline: 4px;
     --h2Size: 21.38px;
     --h2Weight: 800;
-    --h2Outline: 2px;
     --h3Size: 17.3px;
     --h3Weight: 700;
-    --h3Outline: 0.8px;
     --textWeight: 500;
     --textLineHeight: 25px;
   }
@@ -3455,16 +3387,12 @@ a:hover>svg.ctaArrow.pulse, button:hover>svg.ctaArrow.pulse {
     --heroSize: 34.58px;
     --heroWeight: var(--h1Weight);
     --heroLineHeight: 45px;
-    --heroOutline: 3px;
     --h1Size: 26.42px;
     --h1Weight: 900;
-    --h1Outline: 4px;
     --h2Size: 21.38px;
     --h2Weight: 800;
-    --h2Outline: 2px;
     --h3Size: 17.3px;
     --h3Weight: 700;
-    --h3Outline: 0.8px;
     --textWeight: 500;
     --textLineHeight: 25px;
   }

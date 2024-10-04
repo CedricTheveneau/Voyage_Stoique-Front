@@ -13,6 +13,7 @@ export const GlobalProvider = ({ children }) => {
   // Gérer l'état d'authentification avec un state
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userId, setUserId] = useState(false);
+  const [userRole, setUserRole] = useState(null);
   const [currentPath, setCurrentPath] = useState(null);
   const pathname = usePathname();
 
@@ -21,6 +22,7 @@ export const GlobalProvider = ({ children }) => {
     const token = localStorage.getItem("user");
     if (token) {
     setUserId(JSON.parse(token).user._id)
+    setUserRole(JSON.parse(token).user.role)
     }
   }, []);
 
@@ -29,7 +31,7 @@ export const GlobalProvider = ({ children }) => {
   }, [pathname]);
 
   return (
-    <GlobalContext.Provider value={{ isAuthenticated, userId, setIsAuthenticated, setUserId, currentPath, setCurrentPath }}>
+    <GlobalContext.Provider value={{ isAuthenticated, userId, userRole, currentPath, setIsAuthenticated, setUserId, setUserRole, setCurrentPath }}>
       {children}
     </GlobalContext.Provider>
   );
