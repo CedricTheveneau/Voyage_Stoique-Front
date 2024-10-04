@@ -8,7 +8,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
-  const { setIsAuthenticated, setUserId } = useGlobalContext();
+  const { setIsAuthenticated, setUserId, setUserRole } = useGlobalContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,7 +38,8 @@ export default function Login() {
 
       localStorage.setItem("user", JSON.stringify(user));
       setIsAuthenticated(true);
-      setUserId(data.updatedUser._id)
+      setUserId(data.updatedUser._id);
+      setUserRole(data.updatedUser.role);
       router.push("/");
     } catch (error) {
       console.error("Erreur lors de la requête de connexion :", error);
