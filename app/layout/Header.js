@@ -60,12 +60,24 @@ export default function Header() {
       <div className="logo"><Image className="logoLight" src="/logoLight.svg" alt="Voyage Stoïque Logo" width="50" height="30"/> <Image
               className="logoDark" src="/logoDark.svg" alt="Voyage Stoïque Logo" width="50" height="30"/>
           <div className="branding">
-              <h1>Voyage Stoïque</h1><span>|</span>
-              <p>La philosophie pour tous</p>
+              <h1>voyage stoïque<span style={{"color": "var(--themeAccent)"}}>.</span></h1><span>|</span>
+              <p>la philosophie pour tous<span style={{"color": "var(--themeAccent)"}}>.</span></p>
           </div>
       </div>
       <div className="navbar">
           <ul className="links">
+          <li><button className="navbarToggle" aria-label="Hamburger menu">
+                            <svg alt="Hamburger menu" className="navbarToggleSVG toggle" style={{"scale": "1.2", "transform": "translateY(2px)"}} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fillRule="evenodd" clipRule="evenodd" d="M19.75 12C19.75 11.5858 19.4142 11.25 19 11.25H5C4.58579 11.25 4.25 11.5858 4.25 12C4.25 12.4142 4.58579 12.75 5 12.75H19C19.4142 12.75 19.75 12.4142 19.75 12Z" fill=""></path>
+                                <path fillRule="evenodd" clipRule="evenodd" d="M19.75 7C19.75 6.58579 19.4142 6.25 19 6.25H5C4.58579 6.25 4.25 6.58579 4.25 7C4.25 7.41421 4.58579 7.75 5 7.75H19C19.4142 7.75 19.75 7.41421 19.75 7Z" fill=""></path>
+                                <path fillRule="evenodd" clipRule="evenodd" d="M19.75 17C19.75 16.5858 19.4142 16.25 19 16.25H5C4.58579 16.25 4.25 16.5858 4.25 17C4.25 17.4142 4.58579 17.75 5 17.75H19C19.4142 17.75 19.75 17.4142 19.75 17Z" fill=""></path>
+                            </svg>
+                            <svg alt="Close hamburger menu" className="navbarToggleSVG" style={{"scale": "1.8", "transform": "translateY(1.5px)"}} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8.46445 15.5354L15.5355 8.46436" stroke="" strokeWidth="1.5" strokeLinecap="round"></path>
+                                <path d="M8.46446 8.46458L15.5355 15.5356" stroke="" strokeWidth="1.5" strokeLinecap="round"></path>
+                            </svg>
+
+                        </button></li>
               <li><button className="darkModeToggle" aria-label="Dark mode"><svg alt="Dark mode - moon"
                           className="darkModeToggleSVG" id="moon" width="24" height="24" viewBox="0 0 24 24"
                           fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -102,21 +114,21 @@ export default function Header() {
                               d="M6.16632 18.8943C6.45921 18.6014 6.45921 18.1265 6.16632 17.8336C5.87342 17.5407 5.39855 17.5407 5.10566 17.8336L4.39855 18.5407C4.10566 18.8336 4.10566 19.3085 4.39855 19.6014C4.69144 19.8943 5.16632 19.8943 5.45921 19.6014L6.16632 18.8943Z"
                               fill="black" />
                       </svg></button></li>
-              <li><Link href="/" className={blogClassList} title="Access the home page">Blog</Link>
+              <li><Link href="/" className={blogClassList} title="Access the home page">blog<span style={{"color": "var(--themeAccent)"}}>.</span></Link>
               {userRole === "admin" && <ul className="dropdown"><li><Link href="/create" className="link" title="Create a new blog post for Voyage Stoïque">Nouvel article</Link></li><li><Link href="/admin/blog" className="link" title="Access the blog admin panel">Admin</Link></li></ul>}</li><span
                   className="navbarSeparator">|</span>
-              <li><Link href="/thinking-corner" className={thinkingCornerClassList} title="Access the news page">Thinking Corner</Link>
+              <li><Link href="/thinking-corner" className={thinkingCornerClassList} title="Access the news page">thinking corner<span style={{"color": "var(--themeAccent)"}}>.</span></Link>
               {userRole === "admin" && <ul className="dropdown"><li><Link href="/admin/thinking-corner" className="link" title="Access the thinking corner admin panel">Admin</Link></li></ul>}</li><span
                   className="navbarSeparator">|</span>
                   <li>
-    <Link href={profileLink} className={profileClassList} title="Access the profile page">Profil</Link>
+    <Link href={profileLink} className={profileClassList} title="Access the profile page">profil<span style={{"color": "var(--themeAccent)"}}>.</span></Link>
   <ul className="dropdown">
       {isAuthenticated ? <li><form onSubmit={handleLogoutSubmit}><button type="submit" className="link" title="Log out from Voyage Stoïque">Déconnexion</button></form></li> : <li><Link href="/login" className="link" title="Log into your account on Voyage Stoïque">Connexion</Link></li>}
   </ul>
 </li>
                   <span
                   className="navbarSeparator">|</span>
-              <li><button className="navCTA"><Link href="https://donate.stripe.com/test_bIYbJQeQf9Agh2geUU">Effectuer une donation</Link></button></li>
+              <li><button className="navCTA"><Link href="https://donate.stripe.com/test_bIYbJQeQf9Agh2geUU">effectuer une donation.</Link></button></li>
           </ul>
       </div>
   </nav>

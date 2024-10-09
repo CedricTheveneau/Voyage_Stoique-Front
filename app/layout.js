@@ -5,6 +5,7 @@ import Overflay from "./layout/Overflay";
 import { GoogleTagManager, GoogleAnalytics } from "@next/third-parties/google";
 import ClientScripts from "./ClientScripts";
 import { GlobalProvider } from "./layout/GlobalContext";
+import Footer from "./layout/Footer";
 
 export const metadata = {
   title: "Voyage Stoïque | La philosophie pour tous.",
@@ -26,6 +27,7 @@ export default function RootLayout({ children }) {
           <Overflay />
           <Header />
           {children}
+          <Footer />
           <ClientScripts />
         </body>
       </GlobalProvider>

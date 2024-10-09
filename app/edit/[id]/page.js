@@ -4,7 +4,7 @@ import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import styles from "../../page.module.css";
 
-export default function EditCard() {
+export default function EditArticle() {
   const [profilePic, setProfilePic] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -34,7 +34,7 @@ export default function EditCard() {
     }
 
     try {
-      const response = await fetch(`http://localhost:8080/api/kards/${id}`, {
+      const response = await fetch(`http://localhost:8080/api/articles/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -76,7 +76,7 @@ export default function EditCard() {
       }
 
       try {
-        const response = await fetch(`http://localhost:8080/api/kards/${id}`, {
+        const response = await fetch(`http://localhost:8080/api/articles/${id}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
