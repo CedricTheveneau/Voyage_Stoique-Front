@@ -36,10 +36,10 @@
   --h3Size: 22.65px;
   --h3Weight: 600;
   --textSize: 16px;
-  --textWeight: 500;
+  --textWeight: 200;
   --textLineHeight: 25px;
   --oswald: "Oswald";
-  --skew: 25deg;
+  --skew: 0deg;
 }
 
 /**---------- Reset ----------**/
@@ -95,7 +95,6 @@ h1,
 h2,
 h3 {
   font-family: var(--oswald), sans-serif;
-  font-style: italic;
 }
 
 h1 {
@@ -106,13 +105,13 @@ h1 {
 h2 {
   font-size: var(--h2Size);
   font-weight: var(--h2Weight);
-  color: var(--themeDark);
+  color: var(--themeDark80);
 }
 
 h3 {
   font-size: var(--h3Size);
   font-weight: var(--h3Weight);
-  color: var(--themeDark);
+  color: var(--themeDark70);
 }
 
 p,
@@ -133,7 +132,8 @@ p>span {
 }
 
 /**todo---------- Light theme style ----------todo**/
-body:has(.signup), body:has(.login) {
+body:has(.signup),
+body:has(.login) {
   >.socials {
     display: none !important;
   }
@@ -143,9 +143,15 @@ body:has(.signup), body:has(.login) {
   }
 }
 
+body:has(main.legals) {
+  >.socials {
+    display: none !important;
+  }
+}
+
 body {
   background-color: var(--themeLight);
-  color: var(--themeDark);
+  color: var(--themeDark50);
   font-size: var(--textSize);
   font-weight: var(--textWeight);
   position: relative;
@@ -184,7 +190,7 @@ body {
     position: absolute;
     top: 0px;
     left: 0px;
-    transform: translateX(5%) translateY(90dvh);
+    transform: translateX(5%) translateY(calc(100dvh - 70px));
     z-index: 2;
     display: flex;
     flex-direction: column;
@@ -193,8 +199,7 @@ body {
     >p {
       font-family: var(--oswald);
       color: var(--themeDark);
-      font-weight: bold;
-      font-style: italic;
+      font-weight: 400;
       font-size: var(--h3Size);
     }
 
@@ -203,23 +208,6 @@ body {
       font-weight: bold;
       color: var(--themeAccent);
       position: relative;
-    }
-
-    a::after {
-      position: absolute;
-      content: "";
-      background-color: var(--themeAccent);
-      height: 3px;
-      inset: 0;
-      border-radius: 10px;
-      transform: translateY(20px) scaleX(0);
-      transform-origin: right center;
-      transition: transform 250ms ease-in-out;
-    }
-
-    a:hover::after {
-      transform: translateY(20px) scaleX(1);
-      transform-origin: left center;
     }
 
 
@@ -239,7 +227,7 @@ body {
     position: fixed;
     top: 0px;
     left: 50%;
-    transform: translateX(-50%) translateY(90dvh);
+    transform: translateX(-50%) translateY(calc(100dvh - 70px));
     z-index: 2;
 
     >a {
@@ -283,6 +271,7 @@ body {
 
           >h1 {
             font-size: var(--h3Size);
+            color: var(--themeDark);
           }
 
           >svg {
@@ -295,12 +284,13 @@ body {
           }
 
           >span {
-            font-size: var(--h3Size);
+            color: var(--themeAccent);
           }
 
           >p {
-            font-weight: 600;
-            font-style: calc(36.75px / var(--goldenRatio));
+            font-weight: 100;
+            font-size: calc(var(--textSize) - 2px);
+            color: var(--themeDark50);
 
             >a {
               color: var(--themeAccent);
@@ -328,11 +318,10 @@ body {
             >a {
               color: var(--themeDark);
               font-weight: var(--h3Weight);
-              font-style: italic;
               position: relative;
               --afterColor: var(--themeDark);
-              --transform-origin: right center;
-              --transform-origin-alt: left center;
+              --transform-origin: center;
+              --transform-origin-alt: center;
             }
 
             >a::after {
@@ -340,19 +329,25 @@ body {
               inset: 0;
               height: 4px;
               top: 120%;
-              /* border-radius: 10px; */
+              border-radius: 10px;
               transform: skew(calc(var(--skew) * -1));
               position: absolute;
               background-color: var(--themeAccent);
               scale: 0;
               transform-origin: var(--transform-origin);
-              transition: scale 250ms ease-in-out;
+              transition: scale 250ms ease-in-out, width 250ms ease-in-out
             }
 
             >a:hover::after,
             a.active::after {
               transform-origin: var(--transform-origin-alt);
               scale: 1;
+            }
+
+            >a.active::after {
+              width: 4px;
+              left: 50%;
+              transform: translateX(-50%);
             }
 
             >ul.dropdown {
@@ -362,6 +357,7 @@ body {
               padding: 10px 10px 20px 10px;
               left: 45%;
               top: 15%;
+              border-radius: 6px;
               transform: scaleY(0) translateX(-50%) skew(0);
               transform-origin: top;
               list-style: none;
@@ -377,11 +373,10 @@ body {
                   margin: auto;
                   color: var(--themeLight);
                   font-weight: var(--h3Weight);
-                  /* font-style: italic; */
                   position: relative;
                   --afterColor: var(--themeDark);
-                  --transform-origin: right center;
-                  --transform-origin-alt: left center;
+                  --transform-origin: center;
+                  --transform-origin-alt: center;
                 }
 
                 >a:hover {
@@ -392,22 +387,29 @@ body {
                   content: "";
                   inset: 0;
                   height: 4px;
-                  width: 100%;
+                  width: 4px;
+                  left: 50%;
                   top: 120%;
-                  left: -10%;
-                  /* border-radius: 10px; */
+                  /* left: -10%; */
+                  border-radius: 10px;
                   transform: skew(calc(var(--skew) * -1));
                   position: absolute;
                   background-color: var(--afterColor);
                   scale: 0;
                   transform-origin: var(--transform-origin);
-                  transition: scale 250ms ease-in-out;
+                  transition: scale 250ms ease-in-out, width 250ms ease-in-out;
                 }
 
                 >a:hover::after,
                 a.active::after {
                   transform-origin: var(--transform-origin-alt);
                   scale: 1;
+                }
+
+                >a.active::after {
+                  width: 4px;
+                  left: 50%;
+                  transform: translateX(-50%);
                 }
               }
             }
@@ -430,13 +432,12 @@ body {
               font-size: var(--textSize);
               font-weight: var(--textWeight);
               display: flex;
-    align-items: center;
-    justify-content: center;
+              align-items: center;
+              justify-content: center;
 
               >a {
                 color: var(--themeLight);
                 font-weight: var(--h3Weight);
-                font-style: italic;
                 position: relative;
                 transition: color 250ms ease-in-out;
                 --afterColor2: var(--themeAccent);
@@ -453,6 +454,7 @@ body {
                 top: -20%;
                 width: 110%;
                 height: 150%;
+                border-radius: 6px;
                 transform: skew(calc(var(--skew) * -1));
                 position: absolute;
                 background-color: var(--afterColor2);
@@ -468,6 +470,7 @@ body {
                 top: 120%;
                 left: 0%;
                 width: 100%;
+                border-radius: 10px;
               }
 
               >svg.darkModeToggleSVG {
@@ -494,54 +497,61 @@ body {
             position: relative;
             display: grid;
             align-items: center;
+
             >ul.dropdown {
-              width: fit-content;
+
+              /* width: fit-content; */
               >li {
-              >form > button {
-                padding: 5px;
-                border: transparent;
-                background-color: transparent;
-                font-size: var(--textSize);
-                font-weight: var(--textWeight);
+                >form>button {
+                  padding: 5px;
+                  border: transparent;
+                  background-color: transparent;
+                  font-size: var(--textSize);
+                  font-weight: var(--textWeight);
                   color: var(--themeLight);
                   font-weight: var(--h3Weight);
-                  font-style: italic;
                   position: relative;
                   transition: color 250ms ease-in-out;
                   --afterColor: var(--themeDark);
-                  --transform-origin: right center;
-                  --transform-origin-alt: left center;
-              }
-  
-              >form >button:hover,
-              >form >button:active {
-                color: var(--themeDark);
-              }
-  
-              >form >button::after {
-                content: "";
-                inset: 0;
-                height: 4px;
-                width: 100%;
-                top: 120%;
-                left: -10%;
-                /* border-radius: 10px; */
-                transform: skew(calc(var(--skew) * -1));
-                position: absolute;
-                background-color: var(--afterColor);
-                scale: 0;
-                transform-origin: var(--transform-origin);
-                transition: scale 250ms ease-in-out;
-              }
-  
-              >form >button:hover::after,
-              >form > button:active::after {
-                transform-origin: var(--transform-origin-alt);
+                  --transform-origin: center;
+                  --transform-origin-alt: center;
+                }
+
+                >form>button:hover,
+                >form>button:active {
+                  color: var(--themeDark);
+                }
+
+                >form>button::after {
+                  content: "";
+                  inset: 0;
+                  height: 4px;
+                  width: 100%;
+                  top: 120%;
+                  left: -10%;
+                  /* border-radius: 10px; */
+                  transform: skew(calc(var(--skew) * -1));
+                  position: absolute;
+                  background-color: var(--afterColor);
+                  scale: 0;
+                  transform-origin: var(--transform-origin);
+                  transition: scale 250ms ease-in-out, width 250ms ease-in-out;
+                }
+
+                >form>button:hover::after,
+                >form>button:active::after {
+                  transform-origin: var(--transform-origin-alt);
                   scale: 1;
+                }
+
+                >form>button:active::after {
+                  width: 4px;
+                  left: 50%;
+                  transform: translateX(-50%);
+                }
               }
             }
-            } 
-            
+
           }
 
           >li:has(ul.dropdown):hover {
@@ -553,6 +563,7 @@ body {
           }
 
           >span {
+            color: var(--themeDark50);
             transform: skew(calc(var(--skew) * -1));
           }
         }
@@ -620,7 +631,6 @@ body {
           >a {
             color: var(--themeLight);
             font-weight: var(--h3Weight);
-            /* font-style: italic; */
             position: relative;
             transition: color 250ms ease-in-out;
 
@@ -741,7 +751,6 @@ body {
                 >a {
                   color: var(--themeLight);
                   font-weight: var(--h3Weight);
-                  font-style: italic;
                   position: relative;
                   transition: color 250ms ease-in-out;
 
@@ -929,7 +938,6 @@ body {
               font-weight: var(--h1Weight);
               font-size: var(--h2Size);
               font-family: var(--oswald);
-              font-style: italic;
             }
 
             >.tags {
@@ -954,7 +962,6 @@ body {
               }
 
               >p {
-                font-style: italic;
                 font-weight: var(--h2Weight);
               }
             }
@@ -966,7 +973,6 @@ body {
 
           > :last-child {
             font-weight: var(--h1Weight);
-            font-style: italic;
             font-size: calc(var(--h3Size) - 4px);
           }
         }
@@ -986,6 +992,7 @@ body {
       ul>li {
         >a {
           color: var(--themeAccent);
+          font-weight: var(--h3Weight);
           position: relative;
         }
 
@@ -1096,7 +1103,6 @@ body {
                   >a {
                     color: var(--themeDark);
                     font-weight: var(--h3Weight);
-                    font-style: italic;
                     position: relative;
                     transition: color 250ms 250ms ease-in-out;
 
@@ -1321,7 +1327,6 @@ body {
             >a {
               color: var(--themeDark);
               font-weight: var(--h3Weight);
-              font-style: italic;
               position: relative;
               transition: color 250ms 250ms ease-in-out;
 
@@ -1455,7 +1460,6 @@ body {
             >a {
               color: var(--themeDark);
               font-weight: var(--h3Weight);
-              font-style: italic;
               position: relative;
               transition: color 250ms 250ms ease-in-out;
 
@@ -1597,7 +1601,6 @@ body {
             >a {
               color: var(--themeDark);
               font-weight: var(--h3Weight);
-              font-style: italic;
               position: relative;
               transition: color 250ms 250ms ease-in-out;
 
@@ -1924,7 +1927,6 @@ body {
         >a {
           color: var(--themeDark);
           font-weight: var(--h3Weight);
-          font-style: italic;
           position: relative;
           transition: color 250ms 250ms ease-in-out;
 
@@ -2006,7 +2008,6 @@ body {
         >a {
           color: var(--themeLight);
           font-weight: var(--h3Weight);
-          font-style: italic;
           position: relative;
           transition: color 250ms ease-in-out;
 
@@ -2069,7 +2070,8 @@ body {
   }
 
   >main.signup,
-  main.login {
+  main.login,
+  main.articleCreation {
     height: 100dvh;
     width: 100dvw;
     padding: 15dvw;
@@ -2113,7 +2115,6 @@ body {
         font-weight: var(--h3Weight);
         color: var(--themeDark);
         font-weight: var(--h3Weight);
-        font-style: italic;
         position: relative;
         transition: color 250ms 250ms ease-in-out;
 
@@ -2207,8 +2208,9 @@ body {
           align-items: center;
           gap: 15px;
 
-          >h1 {
+          >h2 {
             font-size: var(--h3Size);
+            color: var(--themeDark);
           }
 
           >svg {
@@ -2225,12 +2227,13 @@ body {
           }
 
           >span {
-            font-size: var(--h3Size);
+            color: var(--themeAccent);
           }
 
           >p {
-            font-weight: 600;
-            font-style: calc(36.75px / var(--goldenRatio));
+            font-weight: 100;
+            font-size: calc(var(--textSize) - 2px);
+            color: var(--themeDark50);
           }
         }
       }
@@ -2254,11 +2257,10 @@ body {
               fill: var(--themeDark);
               color: var(--themeDark);
               font-weight: var(--h3Weight);
-              font-style: italic;
               position: relative;
               --afterColor: var(--themeDark);
-              --transform-origin: right center;
-              --transform-origin-alt: left center;
+              --transform-origin: center;
+              --transform-origin-alt: center;
             }
 
             >a:has(svg):hover::after {
@@ -2276,13 +2278,19 @@ body {
               background-color: var(--afterColor);
               scale: 0;
               transform-origin: var(--transform-origin);
-              transition: scale 250ms ease-in-out;
+              transition: scale 250ms ease-in-out, width 250ms ease-in-out;
             }
 
             >a:hover::after,
             a.active::after {
               transform-origin: var(--transform-origin-alt);
               scale: 1;
+            }
+
+            >a.active::after {
+              width: 4px;
+              left: 50%;
+              transform: translateX(-50%);
             }
 
             >button {
@@ -2295,7 +2303,6 @@ body {
               >a {
                 color: var(--themeAccent);
                 font-weight: var(--h3Weight);
-                font-style: italic;
                 position: relative;
                 transition: color 250ms ease-in-out;
                 --afterColor2: var(--themeDark);
@@ -2378,7 +2385,7 @@ body.dark {
         }
 
         >.branding>h1 {
-          color: var(--themeLight);
+          color: var(--themeDark);
         }
 
         & #tagline {
@@ -2783,11 +2790,13 @@ svg.ctaArrow {
   animation: ctaArrowWiggle 1500ms ease-out infinite;
 }
 
-a:hover>svg.ctaArrow, button:hover>svg.ctaArrow {
+a:hover>svg.ctaArrow,
+button:hover>svg.ctaArrow {
   animation: ctaArrowFlash 800ms ease-out infinite;
 }
 
-a:hover>svg.ctaArrow.pulse, button:hover>svg.ctaArrow.pulse {
+a:hover>svg.ctaArrow.pulse,
+button:hover>svg.ctaArrow.pulse {
   animation: ctaArrowPulse 800ms ease-out infinite;
 }
 
@@ -3106,6 +3115,7 @@ a:hover>svg.ctaArrow.pulse, button:hover>svg.ctaArrow.pulse {
     right: 0;
     top: 12px;
     padding-bottom: 20px;
+    padding-right: 10px !important;
     transition: background-color 250ms ease-in-out;
     z-index: 1;
   }
@@ -3123,11 +3133,20 @@ a:hover>svg.ctaArrow.pulse, button:hover>svg.ctaArrow.pulse {
     display: block !important;
     width: 100%;
     display: flex !important;
-    justify-content: flex-end;
+    justify-content: flex-end !important;
   }
 
   .navbarToggle>svg:not(svg.toggle) {
     display: none;
+  }
+
+  header .navbar>ul>li:has(.navbarToggle) {
+    z-index: 100;
+  }
+
+  header .navbar>ul>li:has(.darkModeToggle) {
+    display: flex;
+    justify-content: flex-end;
   }
 
   header .navbar>ul>li:not(:first-child) {
@@ -3149,6 +3168,10 @@ a:hover>svg.ctaArrow.pulse, button:hover>svg.ctaArrow.pulse {
 
   .navbar>ul>span {
     display: none;
+  }
+
+  ul.dropdown>li>form>button {
+    color: var(--themeDark) !important;
   }
 
   main {

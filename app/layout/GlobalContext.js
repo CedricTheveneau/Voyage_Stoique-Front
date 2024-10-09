@@ -11,6 +11,7 @@ export const useGlobalContext = () => useContext(GlobalContext);
 
 export const GlobalProvider = ({ children }) => {
   // Gérer l'état d'authentification avec un state
+  const [userToken, setUserToken] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userId, setUserId] = useState(false);
   const [userRole, setUserRole] = useState(null);
@@ -21,6 +22,7 @@ export const GlobalProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem("user");
     if (token) {
+      setUserToken(JSON.parse(token).token);
     setUserId(JSON.parse(token).user._id)
     setUserRole(JSON.parse(token).user.role)
     }
@@ -31,7 +33,7 @@ export const GlobalProvider = ({ children }) => {
   }, [pathname]);
 
   return (
-    <GlobalContext.Provider value={{ isAuthenticated, userId, userRole, currentPath, setIsAuthenticated, setUserId, setUserRole, setCurrentPath }}>
+    <GlobalContext.Provider value={{ userToken, isAuthenticated, userId, userRole, currentPath, setIsAuthenticated, setUserId, setUserRole, setCurrentPath }}>
       {children}
     </GlobalContext.Provider>
   );
