@@ -21,9 +21,9 @@
   --themeDark70: #141414B3;
   --themeDark50: #14141480;
   --themeDark10: #1414144A;
-  --themeAccent: #FC5D6A;
-  --themeAccent50: #FC5D6A80;
-  --themeAccent10: #FC5D6A4A;
+  --themeAccent: #B0ABED;
+  --themeAccent50: #B0ABED80;
+  --themeAccent10: #B0ABED4A;
   --goldenRatio: 1.618;
   --goldenRatioHalf: var(--goldenRatio) / 2;
   --heroSize: 95.95px;
