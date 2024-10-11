@@ -12,7 +12,7 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMessage(""); // Reset the error message
+    setErrorMessage(""); // Réinitialiser le message d'erreur
 
     try {
       const response = await fetch(
@@ -26,8 +26,10 @@ export default function Login() {
         }
       );
 
+      // Vérifier si la réponse n'est pas ok
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorData = await response.json(); // Récupérer les données d'erreur
+        throw new Error(errorData.message || 'Erreur lors de la connexion'); // Utiliser le message d'erreur
       }
 
       const data = await response.json();
@@ -39,17 +41,25 @@ export default function Login() {
       localStorage.setItem("user", JSON.stringify(user));
       setIsAuthenticated(true);
       setUserId(data.updatedUser._id);
-      setUserUsername(data.updatedUser.username)
+      setUserUsername(data.updatedUser.username);
       setUserRole(data.updatedUser.role);
-      setIsSubscribed(data.updatedUser.newsSubscription)
+      setIsSubscribed(data.updatedUser.newsSubscription);
       router.push("/");
     } catch (error) {
       console.error("Erreur lors de la requête de connexion :", error);
-      setErrorMessage(
-        "Erreur lors de la connexion. Vérifiez vos identifiants."
-      );
+      setErrorMessage(error.message); // Afficher le message d'erreur
     }
-  };
+};
+
+const handleChangeEmail = (e) => {
+  setEmail(e.target.value);
+  setErrorMessage(""); // Réinitialiser le message d'erreur
+};
+
+const handleChangePassword = (e) => {
+  setPassword(e.target.value);
+  setErrorMessage(""); // Réinitialiser le message d'erreur
+};
 
   return (
     <main className="signup">
@@ -64,7 +74,7 @@ export default function Login() {
           type="email"
           placeholder="Email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={handleChangeEmail}
         />
         </div>
         <div className="formLine">
@@ -74,7 +84,7 @@ export default function Login() {
           type="password"
           placeholder="Mot de passe"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={handleChangePassword}
         />
         </div>
         <button type="submit">Se connecter <svg alt="Arrow" className="ctaArrow" width="79" height="30" viewBox="0 0 79 37" fill="none" xmlns="http://www.w3.org/2000/svg">
