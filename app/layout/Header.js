@@ -132,6 +132,7 @@ export default function Header() {
           </ul>
       </div>
   </nav>
+  <div id="readingProgress"></div>
 </header>
  );
 }

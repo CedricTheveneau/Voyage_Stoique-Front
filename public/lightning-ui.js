@@ -21,7 +21,6 @@ sections.forEach((section) => {
 
 //* Changes the navbar bg on scroll
 window.addEventListener("scroll", () => {
-  console.log("Scrolling")
   if (scrollY > 10) {
     document.querySelector("header").style.backgroundColor =
       "var(--themeLight)";
@@ -43,7 +42,7 @@ window.onscroll = function (ev) {
   } else if (
     window.innerHeight + Math.round(window.scrollY) <= window.innerHeight &&
     document.querySelector(".carousel") == null &&
-    document.querySelector(".heroContent") == null
+    document.querySelector(".hero") == null
   ) {
     document.querySelector(".overflay svg").style.transform =
       "translateX(-48vw) scale(0.5)";
@@ -61,7 +60,7 @@ window.onscroll = function (ev) {
   } else if (
     window.innerHeight + Math.round(window.scrollY) >= window.innerHeight &&
     document.querySelector(".carousel") == null &&
-    document.querySelector(".heroContent") == null
+    document.querySelector(".hero") == null
   ) {
     document.querySelector(".overflay svg").style.transform =
       "translateX(-48vw) scale(0.5)";
@@ -71,11 +70,117 @@ window.onscroll = function (ev) {
   if (
     window.innerHeight + Math.round(window.scrollY) >= window.innerHeight &&
     document.querySelector(".carousel") == null &&
-    document.querySelector(".heroContent") == null
+    document.querySelector(".hero") == null
   ) {
     document.querySelector(".overflay svg").style.transform =
       "translateX(-48vw) scale(0.5)";
   }
+
+//! ---------- PROGRESS BAR ---------- //
+
+const articleCore = document.querySelector('.content.fit.articleCore');
+const header = document.querySelector('header');
+
+function updateProgressBar() {
+    const articleHeight = articleCore.scrollHeight;
+    const windowHeight = window.innerHeight;
+    const scrollTop = window.scrollY;
+    const articleTop = articleCore.offsetTop;
+
+    const headerHeight = header.offsetHeight; 
+
+    const maxScroll = articleHeight - windowHeight;
+
+    let scrollPercentage = (scrollTop - articleTop + headerHeight) / maxScroll * 100;
+
+    scrollPercentage = Math.min(Math.max(scrollPercentage, 0), 100);
+
+    if (scrollTop >= (window.innerHeight - headerHeight)) {
+        header.style.setProperty('--progressBarValue', `${scrollPercentage}%`);
+    } else {
+        header.style.setProperty('--progressBarValue', `0%`);
+    }
+}
+
+window.addEventListener('scroll', updateProgressBar);
+
+//! ---------- SUMMARY INTERSECTION OBSERVER ---------- //
+
+const anchors = document.querySelectorAll('.heroSummary a');
+const headings = document.querySelectorAll('h2[id], h3[id]');
+
+let activeId = null;
+
+function setActiveAnchor(entries) {
+    let currentActiveId = null;
+
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const id = entry.target.id;
+            currentActiveId = id;
+        }
+    });
+
+    if (currentActiveId) {
+        activeId = currentActiveId;
+    }
+
+    anchors.forEach(anchor => {
+        const anchorId = anchor.getAttribute('href').substring(1);
+
+        if (anchorId === activeId) {
+            anchor.classList.add('active');
+        } else {
+            anchor.classList.remove('active');
+        }
+    });
+}
+
+// Créez un nouvel Intersection Observer
+const summaryObserver = new IntersectionObserver(setActiveAnchor, {
+    root: null, // Utilise la fenêtre comme racine
+    rootMargin: '0px', // Aucun décalage
+    threshold: 0.1 // 10% de visibilité
+});
+
+// Observer tous les headings
+headings.forEach(heading => {
+  summaryObserver.observe(heading);
+});
+
+//! ---------- MOVE ARTICLE CONTENT INFO ---------- //
+
+const articleContentInfo = document.querySelector('.articleContentInfo');
+const articleAside = document.querySelector('.articleAside');
+const originalParent = articleContentInfo.parentElement;
+
+function moveContentInfo() {
+    const scrollPosition = window.scrollY;
+    const viewportHeight = window.innerHeight;
+
+    const threshold = viewportHeight - 58;
+
+    if (scrollPosition > threshold) {
+        if (!articleAside.contains(articleContentInfo)) {
+            articleAside.insertBefore(articleContentInfo, articleAside.firstChild);
+        }
+    } else {
+        if (!originalParent.contains(articleContentInfo)) {
+            originalParent.appendChild(articleContentInfo);
+        }
+    }
+}
+
+window.addEventListener('scroll', moveContentInfo);
+
+//! ---------- RESPONSIVE TEXT AREA ---------- //
+
+const commentArea = document.getElementById("commentArea");
+
+commentArea.addEventListener("input", function() {
+  this.style.height = "auto";
+  this.style.height = this.scrollHeight + "px";
+});
 
 //! ---------- RESPONSIVE MENU TOGGLE ---------- !//
 
@@ -88,7 +193,6 @@ const navbar = document.querySelectorAll(".navbar")[0];
 if (menuToggle && toggleSvgs) {
   menuToggle.addEventListener("click", () => {
     toggleSvgs.forEach((e) => {
-      console.log(e);
       e.classList.toggle("toggle");
     });
     if (toggleSvgs[0].classList.contains("toggle")) {
