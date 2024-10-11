@@ -2896,6 +2896,11 @@ body {
             }
 
           }
+
+          >.comment:last-child,
+          .childrenComments>.comment:last-child {
+            border-bottom: none;
+          }
         }
       }
     }

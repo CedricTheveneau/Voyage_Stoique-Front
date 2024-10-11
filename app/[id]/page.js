@@ -13,7 +13,7 @@ export default function ViewArticle({ params }) {
   const { id } = params;
   const [article, setArticle] = useState(null);
   const [author, setAuthor] = useState(null);
-  const [comments, setComments] = useState(null);
+  const [comments, setComments] = useState([]);
   const [headings, setHeadings] = useState([]);
   const [error, setError] = useState("");
   const [commentsTree, setCommentsTree] = useState([]);
@@ -243,6 +243,8 @@ export default function ViewArticle({ params }) {
 
       const createdComment = await response.json(); // Récupération du commentaire créé
 
+      setComments((prevComments) => [...prevComments, createdComment]);
+
       // Mise à jour de l'article avec le nouvel ID de commentaire
       const articleResponse = await fetch(
         `${apiGateway}/articles/comment/${id}`,
@@ -455,9 +457,10 @@ export default function ViewArticle({ params }) {
 
   useEffect(() => {
     if (comments && Array.isArray(comments)) {
-      setCommentsTree(buildCommentTree(comments));
+      const newCommentsTree = buildCommentTree(comments);
+      setCommentsTree(newCommentsTree);
     } else {
-      setCommentsTree([]); // Assurez-vous de réinitialiser si comments n'est pas valide
+      setCommentsTree([]); // Si "comments" n'est pas valide, réinitialise le tree
     }
   }, [comments]);
 
