@@ -3,12 +3,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useGlobalContext } from "../layout/GlobalContext";
-import DOMPurify from "dompurify"; // Importer DOMPurify
-
-const apiGateway = process.env.NEXT_PUBLIC_API_GATEWAY_URI;
 
 export default function ViewArticle({ params }) {
-  const { userToken, isSubscribed, setIsSubscribed, userId, userUsername } =
+  const { userToken, isSubscribed, setIsSubscribed, userId, userUsername, createMarkup, formatDate, apiGateway } =
     useGlobalContext();
   const { id } = params;
   const [article, setArticle] = useState(null);
@@ -18,19 +15,6 @@ export default function ViewArticle({ params }) {
   const [recommendedArticles, setRecommendedArticles] = useState([]);
   const [error, setError] = useState("");
   const [commentsTree, setCommentsTree] = useState([]);
-
-  const createMarkup = (html) => {
-    return { __html: DOMPurify.sanitize(html) };
-  };
-
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("fr-FR", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  };
 
   const extractHeadings = (htmlContent) => {
     const parser = new DOMParser();
@@ -657,8 +641,8 @@ export default function ViewArticle({ params }) {
                       </button>
                     </form>{" "}
                     <p>{article.upvotes?.length || 0}</p> •{" "}
-                    <p>{article.comments?.length || 0} commentaires</p> •{" "}
-                    <p>{article.reads?.length || 0} lectures</p>
+                    <p>{article.comments?.length || 0} commentaire{article.comments.length > 1 ? 's' : ''}</p> •{" "}
+                    <p>{article.reads?.length || 0} lecture{article.reads.length > 1 ? 's' : ''}</p>
                   </div>
                 </div>
               </div>
@@ -902,7 +886,8 @@ export default function ViewArticle({ params }) {
                       </form>
                       <div className="articleMainInfo">
                       <span className="articleCategory">{article.category}</span>
-                        <h3>{article.title}</h3>
+                        <h3>{article.title}
+                        <span style={{ color: "var(--themeAccent)" }}>.</span></h3>
                       <div className="intro" dangerouslySetInnerHTML={createMarkup(article.intro)}/>
                       <div className="articleMainData">
                         <p>{formatDate(article.publishDate)}</p> •{" "}

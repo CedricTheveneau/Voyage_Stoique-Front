@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
+import DOMPurify from "dompurify";
 
 // Créer le contexte
 const GlobalContext = createContext();
@@ -18,9 +19,23 @@ export const GlobalProvider = ({ children }) => {
   const [userUsername, setUserUsername] = useState(false);
   const [userRole, setUserRole] = useState(null);
   const [currentPath, setCurrentPath] = useState(null);
+  const [query, setQuery] = useState("");
   const pathname = usePathname();
+  const apiGateway = process.env.NEXT_PUBLIC_API_GATEWAY_URI;
 
-  // Vérifier la présence du token dans le localStorage au chargement du composant
+  const createMarkup = (html) => {
+    return { __html: DOMPurify.sanitize(html) };
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("fr-FR", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+  
   useEffect(() => {
     const token = localStorage.getItem("user");
     if (token) {
@@ -65,7 +80,7 @@ export const GlobalProvider = ({ children }) => {
   }, [userId, userToken]);
 
   return (
-    <GlobalContext.Provider value={{ userToken, isAuthenticated, isSubscribed, userId, userUsername, userRole, currentPath, setIsAuthenticated, setIsSubscribed, setUserId, setUserUsername, setUserRole, setCurrentPath }}>
+    <GlobalContext.Provider value={{createMarkup, formatDate, userToken, isAuthenticated, isSubscribed, userId, userUsername, userRole, query, currentPath, apiGateway, setIsAuthenticated, setIsSubscribed, setUserId, setUserUsername, setUserRole, setQuery, setCurrentPath }}>
       {children}
     </GlobalContext.Provider>
   );

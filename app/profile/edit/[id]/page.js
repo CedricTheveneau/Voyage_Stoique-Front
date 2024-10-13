@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { useGlobalContext } from "../../layout/GlobalContext.js";
+import { useGlobalContext } from "../../../layout/GlobalContext.js";
 
 export default function Profile({ params }) {
   const { userToken, userId, createMarkup, formatDate, apiGateway } = useGlobalContext();
@@ -21,72 +21,75 @@ export default function Profile({ params }) {
 
   const handleSave = async (event, articleId = id) => {
     event.preventDefault();
-  
+
     try {
-      // Effectuer la requête pour sauvegarder l'article
       const response = await fetch(`${apiGateway}/articles/save/${articleId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${userToken}`,  // Ajout de l'autorisation ici
+          Authorization: `Bearer ${userToken}`,
         },
       });
-  
+
       if (!response.ok) {
         throw new Error("Une erreur est survenue lors de l'upvote");
       }
-  
+
       const updatedArticleSave = await response.json();
-      const isAlreadySaved = userSavedArticles.some(article => article._id === articleId);
-  
-      // Mise à jour des articles dans les listes
-      const updatedUserPublications = userPublications.map(article => {
-        if (article._id === articleId) {
-          return { ...article, savedNumber: updatedArticleSave };
-        }
-        return article;
-      });
-  
-      const updatedUserHistory = userHistory.map(article => {
-        if (article._id === articleId) {
-          return { ...article, savedNumber: updatedArticleSave };
-        }
-        return article;
-      });
-  
-      // Si l'article est déjà sauvegardé, le retirer
-      if (isAlreadySaved) {
-        setUserSavedArticles(prevSavedArticles =>
-          prevSavedArticles.filter(article => article._id !== articleId)
+
+      // Vérification des tableaux userPublications, userHistory, et userSavedArticles
+      const isInUserPublications = userPublications.some(
+        (article) => article._id === articleId
+      );
+      const isInUserHistory = userHistory.some(
+        (article) => article._id === articleId
+      );
+      const isInUserSavedArticles = userSavedArticles.some(
+        (article) => article._id === articleId
+      );
+
+      // Mise à jour des états selon la présence de l'article
+      if (isInUserPublications) {
+        setUserPublications((prevPublications) =>
+          prevPublications.map((article) =>
+            article._id === articleId
+              ? { ...article, savedNumber: updatedArticleSave }
+              : article
+          )
+        );
+      }
+
+      if (isInUserHistory) {
+        setUserHistory((prevHistory) =>
+          prevHistory.map((article) =>
+            article._id === articleId
+              ? { ...article, savedNumber: updatedArticleSave }
+              : article
+          )
+        );
+      }
+
+      if (isInUserSavedArticles) {
+        setUserSavedArticles((prevSavedArticles) =>
+          prevSavedArticles.map((article) =>
+            article._id === articleId
+              ? { ...article, savedNumber: updatedArticleSave }
+              : article
+          )
         );
       } else {
-        // Si l'article n'est pas encore sauvegardé, récupérer les détails de l'article
-        const articleResponse = await fetch(`${apiGateway}/articles/${articleId}`, {
-          headers: {
-            Authorization: `Bearer ${userToken}`,  // Ajout de l'autorisation ici
-          },
-        });
-        if (!articleResponse.ok) {
-          throw new Error("Erreur lors de la récupération de l'article");
-        }
-  
-        const articleDetails = await articleResponse.json();
+        // Si l'article n'est pas encore dans userSavedArticles, l'ajouter
         const newArticle = {
           _id: articleId,
-          ...articleDetails,
           savedNumber: updatedArticleSave,
+          // Ajoute d'autres propriétés si nécessaire
         };
-  
-        setUserSavedArticles(prevSavedArticles => [
+        setUserSavedArticles((prevSavedArticles) => [
           ...prevSavedArticles,
           newArticle,
         ]);
       }
-  
-      // Mettre à jour les états des listes
-      setUserPublications(updatedUserPublications);
-      setUserHistory(updatedUserHistory);
-  
+
       // Mise à jour de l'utilisateur avec l'article sauvegardé
       try {
         const saveResponse = await fetch(
@@ -95,14 +98,16 @@ export default function Profile({ params }) {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${userToken}`,  // Ajout de l'autorisation ici
+              Authorization: `Bearer ${userToken}`,
             },
-            body: JSON.stringify({ savedArticles: articleId }),
+            body: JSON.stringify({ savedArticles: articleId }), // Utilisation de articleId ici
           }
         );
-  
+
         if (!saveResponse.ok) {
-          throw new Error("Une erreur est survenue lors de la sauvegarde de l'article sur le profil");
+          throw new Error(
+            "Une erreur est survenue lors de la sauvegarde de l'article sur le profil"
+          );
         }
       } catch (error) {
         console.error("Erreur lors de la sauvegarde sur le profil:", error);
@@ -319,7 +324,7 @@ export default function Profile({ params }) {
                 </p>
               </>
             )}
-            <Link href={`/profile/edit/${id}`} title="Modifez les informations de votre profil">
+            <Link href="" title="Modifez les informations de votre profil">
               <svg
                 width="30"
                 height="30"
@@ -517,8 +522,8 @@ export default function Profile({ params }) {
             <p>Aucune publication pour l&apos;instant.</p>
           )}
         </div>
-        {userHistory.length > 5 && (
-          <button className={`simpler ${loadMore1 ? "active" : ""}`} onClick={() => setLoadMore1(true)}>
+        {userHistory.length > 6 && (
+          <button className="simpler" onClick={() => setLoadMore1(true)}>
             voir toute la liste.
           </button>
         )}
@@ -606,8 +611,8 @@ export default function Profile({ params }) {
             <p>Aucune publication pour l&apos;instant.</p>
           )}
         </div>
-        {userSavedArticles.length > 5 && (
-          <button className={`simpler ${loadMore2 ? "active" : ""}`} onClick={() => setLoadMore2(true)}>
+        {userSavedArticles.length > 6 && (
+          <button className="simpler" onClick={() => setLoadMore2(true)}>
             voir toute la liste.
           </button>
         )}
@@ -695,8 +700,8 @@ export default function Profile({ params }) {
             <p>Aucune publication pour l&apos;instant.</p>
           )}
         </div>
-        {userPublications.length > 5 && (
-          <button className={`simpler ${loadMore3 ? "active" : ""}`} onClick={() => setLoadMore3(true)}>
+        {userPublications.length > 6 && (
+          <button className="simpler" onClick={() => setLoadMore3(true)}>
             voir toute la liste.
           </button>
         )}
