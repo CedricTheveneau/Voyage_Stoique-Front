@@ -1,4 +1,3 @@
-
 const sections = document.querySelectorAll(".toAnimate");
 const options = { rootMargin: "-50%" };
 
@@ -81,7 +80,7 @@ window.onscroll = function (ev) {
 const articleCore = document.querySelector('.content.fit.articleCore');
 const header = document.querySelector('header');
 
-function updateProgressBar() {
+const updateProgressBar = () => {
     const articleHeight = articleCore.scrollHeight;
     const windowHeight = window.innerHeight;
     const scrollTop = window.scrollY;
@@ -101,8 +100,9 @@ function updateProgressBar() {
         header.style.setProperty('--progressBarValue', `0%`);
     }
 }
-
-window.addEventListener('scroll', updateProgressBar);
+if (articleCore && header) {
+  window.addEventListener('scroll', updateProgressBar);
+}
 
 //! ---------- SUMMARY INTERSECTION OBSERVER ---------- //
 
@@ -111,7 +111,7 @@ const headings = document.querySelectorAll('h2[id], h3[id]');
 
 let activeId = null;
 
-function setActiveAnchor(entries) {
+  const setActiveAnchor = (entries) => {
     let currentActiveId = null;
 
     entries.forEach(entry => {
@@ -154,7 +154,7 @@ const articleContentInfo = document.querySelector('.articleContentInfo');
 const articleAside = document.querySelector('.articleAside');
 const originalParent = articleContentInfo.parentElement;
 
-function moveContentInfo() {
+const moveContentInfo = () => {
     const scrollPosition = window.scrollY;
     const viewportHeight = window.innerHeight;
 
@@ -170,17 +170,22 @@ function moveContentInfo() {
         }
     }
 }
-
-window.addEventListener('scroll', moveContentInfo);
+if (articleContentInfo && articleAside && originalParent) {
+  window.addEventListener('scroll', moveContentInfo); 
+}
 
 //! ---------- RESPONSIVE TEXT AREA ---------- //
 
-const commentArea = document.getElementById("commentArea");
+const commentArea = document.querySelectorAll("textarea");
 
-commentArea.addEventListener("input", function() {
-  this.style.height = "auto";
-  this.style.height = this.scrollHeight + "px";
+if (commentArea) {
+  commentArea.forEach(e => {
+  e.addEventListener("input", () => {
+  e.style.height = "auto";
+  e.style.height = e.scrollHeight + "px";
 });
+});
+}
 
 //! ---------- RESPONSIVE MENU TOGGLE ---------- !//
 
