@@ -152,8 +152,10 @@ headings.forEach(heading => {
 
 const articleContentInfo = document.querySelector('.articleContentInfo');
 const articleAside = document.querySelector('.articleAside');
-const originalParent = articleContentInfo.parentElement;
-
+let originalParent;
+if (articleContentInfo) {
+  originalParent = articleContentInfo.parentElement;
+}
 const moveContentInfo = () => {
     const scrollPosition = window.scrollY;
     const viewportHeight = window.innerHeight;

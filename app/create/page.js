@@ -4,10 +4,8 @@ import { useRouter } from "next/navigation";
 import { useGlobalContext } from '../layout/GlobalContext';
 import axios from 'axios';
 
-const apiGateway = process.env.NEXT_PUBLIC_API_GATEWAY_URI;
-
 export default function CreateArticle() {
-  const { isAuthenticated, userId, userRole, userToken } = useGlobalContext();
+  const { isAuthenticated, userId, userRole, userToken, apiGateway } = useGlobalContext();
   const [title, setTitle] = useState("");
   const [intro, setIntro] = useState("");
   const [cover, setCover] = useState(null); // Change initial state to null
