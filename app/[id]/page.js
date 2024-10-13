@@ -3,7 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useGlobalContext } from "../layout/GlobalContext";
-import DOMPurify from "dompurify";
 
 export default function ViewArticle({ params }) {
   const { userToken, isSubscribed, setIsSubscribed, userId, userUsername, createMarkup, formatDate, apiGateway } =
