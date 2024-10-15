@@ -7,7 +7,7 @@ export default function License() {
             <h2 className="centered">License</h2><br/>
             <p>Ici, vous pourrez retrouver tout ce que vous voudriez savoir concernant l&apos;exploitation du site, principalement sa license de distribution et les potentielles contreparties.</p>
             <p>Veuillez noter que, à tout moment, vous pouvez envoyer une requête d&apos;information à propos de ces
-                informations ; en envoyant un email à cette adresse <Link href="mailto:dpo@voyagestoique.com" title="Envoyez un email pour demander des informations relatives au site">dpo@voyagestoique.com</Link>.</p>
+                informations ; en envoyant un email à cette adresse <Link href="mailto:dpo.voyagestoique@gmail.com" title="Envoyez un email pour demander des informations relatives au site">dpo.voyagestoique@gmail.com</Link>.</p>
         </div>
         <div className="content">
             <div className="gridBlocs">

@@ -9,7 +9,7 @@ export default function MentionsLegales() {
                 conception, du propriétaire ainsi que des informations concernant les lois qui s&apos;appliquent sur ce
                 dernier.</p>
             <p>Veuillez noter que, à tout moment, vous pouvez envoyer une requête d&apos;information à propos de ces
-                informations ; en envoyant un email à cette adresse <Link href="mailto:dpo@voyagestoique.com" title="Envoyez un email pour demander des informations relatives au site">dpo@voyagestoique.com</Link>.</p>
+                informations ; en envoyant un email à cette adresse <Link href="mailto:dpo.voyagestoique@gmail.com" title="Envoyez un email pour demander des informations relatives au site">dpo.voyagestoique@gmail.com</Link>.</p>
         </div>
         <div className="content fit">
             <div className="gridBlocs">
@@ -18,7 +18,7 @@ export default function MentionsLegales() {
                     <p>En vertu de l&apos;article 6 de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l&apos;économie numérique, il est précisé aux utilisateurs du site internet <Link href="/" title="Se rendre sur le site">https://www.voyage-stoique.com</Link> l&apos;identité des différents intervenants dans le cadre de sa réalisation et de son suivi:</p>
                     <ul>
                       <li>Propriétaire du site : Theveneau Cédric</li>
-                      <li>Contact : <Link href="mailto:contact@voyagestoique.com" title="Contactez le propriétaire du site par email">contact@voyagestoique.com</Link> <Link href="tel:+33647024345" title="Contactez le propriétaire du site par téléphone">06 47 02 43 45</Link></li>
+                      <li>Contact : <Link href="mailto:contact.voyagestoique@gmail.com" title="Contactez le propriétaire du site par email">contact.voyagestoique@gmail.com</Link> <Link href="tel:+33647024345" title="Contactez le propriétaire du site par téléphone">06 47 02 43 45</Link></li>
                       <li>Adresse : 35 Parc de Gaillon 91630 Marolles-en-Hurepoix</li>
                       <li>Identification de l&apos;entreprise : Theveneau Cédric au capital social de 0€</li>
                       <li>SIREN : /</li>
@@ -29,7 +29,7 @@ export default function MentionsLegales() {
                       <li>Propriétaire du site : Theveneau Cédric</li>
                       <li>Contact : <Link href="mailto:theveneaucedricpro@gmail.com" title="Contacter le propriétaire du site par email">theveneaucedricpro@gmail.com</Link></li>
                       <li>Hébergeur : Digital Ocean 101 Avenue of the Americas, New York 10013 United States of America +1.6463978051</li>
-                      <li>Délégué à la protection des données : Theveneau Cédric - <Link href="dpo@voyagestoique.com" title="Envoyer un email au délégué de la protection des données">dpo@voyagestoique.com</Link></li>
+                      <li>Délégué à la protection des données : Theveneau Cédric - <Link href="dpo.voyagestoique@gmail.com" title="Envoyer un email au délégué de la protection des données">dpo.voyagestoique@gmail.com</Link></li>
                     </ul>
                 </div>
                 <div className="info">
@@ -51,7 +51,7 @@ Le cas échéant, Theveneau Cédric se réserve également la possibilité de me
                 </div>
                 <div className="info">
                     <h3>4 - CNIL et gestion des données personnelles<span style={{"color": "var(--themeAccent)"}}>.</span></h3>
-                    <p>Conformément aux dispositions de la loi 78-17 du 6 janvier 1978 modifiée, l’utilisateur du site <Link href="/" title="Accéder au site">https://www.voyage-stoique.com</Link> dispose d’un droit d’accès, de modification et de suppression des informations collectées. Pour exercer ce droit, envoyez un message à notre Délégué à la Protection des Données : Theveneau Cédric - <Link href="dpo@voyagestoique.com" title="Envoyer un email au délégué de la protection des données">dpo@voyagestoique.com</Link>.</p>
+                    <p>Conformément aux dispositions de la loi 78-17 du 6 janvier 1978 modifiée, l’utilisateur du site <Link href="/" title="Accéder au site">https://www.voyage-stoique.com</Link> dispose d’un droit d’accès, de modification et de suppression des informations collectées. Pour exercer ce droit, envoyez un message à notre Délégué à la Protection des Données : Theveneau Cédric - <Link href="dpo.voyagestoique@gmail.com" title="Envoyer un email au délégué de la protection des données">dpo.voyagestoique@gmail.com</Link>.</p>
                     <p>Pour plus d&apos;informations sur la façon dont nous traitons vos données (type de données, finalité, destinataire...), lisez notre <Link href="/legals/charte-confidentialite" title="Accéder à la charte de confidentialité">https://www.voyage-stoique.com/charte-confidentialite</Link>.</p>
                 </div>
                 <div className="info">
