@@ -30,7 +30,7 @@ export default function Footer() {
                     <li><Link href="/legals/droit-auteur" className="link" title="Consultez les informations relatives au droit d'auteur">droit d&apos;auteur<span style={{"color": "var(--themeAccent)"}}>.</span></Link>
                     </li>
                     <span className="navbarSeparator">|</span>
-                    <li><Link href="/legals/license" className="link" title="Consultez la license de distribution de la plateforme">license<span style={{"color": "var(--themeAccent)"}}>.</span></Link>
+                    <li><Link href="/legals/licence" className="link" title="Consultez la licence de distribution de la plateforme">licence<span style={{"color": "var(--themeAccent)"}}>.</span></Link>
                     </li>
                     <span className="navbarSeparator">|</span>
                     <li><Link href="mailto:contact.voyagestoique@gmail.com" className="link" title="Contactez-nous concernant une demande liée à vos droits ou autre">contact<span style={{"color": "var(--themeAccent)"}}>.</span></Link></li>
