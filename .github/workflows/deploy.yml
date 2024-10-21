@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+        with:
+          submodules: true
 
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.5.3
@@ -30,8 +32,12 @@ jobs:
       - name: Verify remote URL
         run: git remote -v
 
+      - name: Update submodules to the latest version
+        run: |
+          git submodule update --remote --merge
+
       - name: Push changes to parent repo
         run: |
           git add .
-          git commit -m "Update front submodule to latest version"
+          git commit -m "Update submodule to latest version" || echo "Nothing to commit"
           git push origin main
