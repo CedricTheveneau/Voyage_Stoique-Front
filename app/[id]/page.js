@@ -314,7 +314,7 @@ export default function ViewArticle({ params }) {
   const renderComments = (comments) => {
     return comments.map((comment) => (
       <div key={comment._id} className="comment">
-        <div className="commentUpvotes">
+        {userToken && <div className="commentUpvotes">
           <form onSubmit={(event) => handleCommentUpvote(event, comment._id)}>
             <button
               type="submit"
@@ -341,7 +341,8 @@ export default function ViewArticle({ params }) {
               ? comment.upvotes.length
               : 0}
           </p>
-        </div>
+        </div>}
+        
         <div className="commentContent">
           <p>
             <Link href={`/profile/${comment.author}`}>
@@ -355,7 +356,7 @@ export default function ViewArticle({ params }) {
               : ""}
           </p>
           <div dangerouslySetInnerHTML={createMarkup(comment.content)}></div>
-          {comment.parentComment === null ? (
+          {comment.parentComment === null && userToken ? (
             <form onSubmit={handleComment} className="commentOnTheArticle">
               <textarea
                 name="content"
@@ -366,7 +367,7 @@ export default function ViewArticle({ params }) {
                 Répondre
               </button>
             </form>
-          ) : (
+          ) : userToken && (
             <form onSubmit={handleComment} className="commentOnTheArticle">
               <textarea
                 name="content"
@@ -394,17 +395,12 @@ export default function ViewArticle({ params }) {
   };
 
   useEffect(() => {
-    if (!userToken) {
-      return; // Sortir si pas de token
-    }
-
     const fetchArticleAndAuthor = async () => {
       try {
         const response = await fetch(`${apiGateway}/articles/${id}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${userToken}`,
           },
         });
 
@@ -417,8 +413,8 @@ export default function ViewArticle({ params }) {
 
         // Extraire les h2 et h3
         extractHeadings(articleData.content);
-
-        try {
+        if (userId) {
+                  try {
           const response = await fetch(
             `${apiGateway}/auth/articlesHistory/${userId}`,
             {
@@ -439,6 +435,8 @@ export default function ViewArticle({ params }) {
         } catch (error) {
           console.error("Erreur lors de l'upvote:", error);
         }
+        }
+
 
         // Récupérer les commentaires en fonction des IDs
         if (articleData.comments && articleData.comments.length > 0) {
@@ -450,7 +448,6 @@ export default function ViewArticle({ params }) {
               method: "GET",
               headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${userToken}`,
               },
             }
           );
@@ -484,41 +481,47 @@ export default function ViewArticle({ params }) {
           setAuthor(userData.user.username);
         }
 
-        try {
-          const recommendationsResponse = await fetch(
-            `${apiGateway}/articles/recommendations/${id}`,
-            {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${userToken}`,
-              },
-            }
-          );
-
-          // Remplacer 'response' par 'recommendationsResponse'
-          if (!recommendationsResponse.ok) {
-            throw new Error(
-              "Une erreur est survenue lors de la récupération de recommandations d'articles"
-            );
-          }
-
-          const recommendations = await recommendationsResponse.json(); // N'oubliez pas de convertir la réponse en JSON
-
-          setRecommendedArticles(recommendations); // Vérifiez si vous devez peut-être traiter recommendations ici
-        } catch (error) {
-          console.error(
-            "Erreur lors de la récupération des recommandations:",
-            error
-          );
-        }
       } catch (error) {
         setError(error.message);
       }
     };
 
     fetchArticleAndAuthor();
-  }, [id, userToken]);
+  }, [id]);
+
+  useEffect(() => {
+    const fetchReco = async () => {
+      try {
+        const recommendationsResponse = await fetch(
+          `${apiGateway}/articles/recommendations/${id}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${userToken}`,
+            },
+          }
+        );
+  
+        // Remplacer 'response' par 'recommendationsResponse'
+        if (!recommendationsResponse.ok) {
+          throw new Error(
+            "Une erreur est survenue lors de la récupération de recommandations d'articles"
+          );
+        }
+  
+        const recommendations = await recommendationsResponse.json(); // N'oubliez pas de convertir la réponse en JSON
+  
+        setRecommendedArticles(recommendations); // Vérifiez si vous devez peut-être traiter recommendations ici
+      } catch (error) {
+        console.error(
+          "Erreur lors de la récupération des recommandations:",
+          error
+        );
+      }
+    }
+    fetchReco()
+  }, [article, userToken])
 
   useEffect(() => {
     if (article) {
@@ -548,7 +551,7 @@ export default function ViewArticle({ params }) {
               height="1117"
               alt="The article's cover"
             />
-            <form
+            {userToken && <form
               className="saveArticle"
               onSubmit={(event) => handleSave(event)}
             >
@@ -588,7 +591,8 @@ export default function ViewArticle({ params }) {
                   </svg>
                 )}
               </button>
-            </form>
+            </form>}
+            
             <div className="searchData">
               <span className="articleCategory">{article.category}</span> |{" "}
               {article.keywords?.length > 0
@@ -619,8 +623,8 @@ export default function ViewArticle({ params }) {
                     </p>
                   </div>
                   <div className="secondLine">
-                    <form onSubmit={handleUpvote}>
-                      <button
+                  <form onSubmit={handleUpvote}>
+                      <button disabled={!userToken}
                         type="submit"
                         className={`upvoteButton ${
                           article.upvotes.includes(userId) ? "active" : ""
@@ -743,7 +747,7 @@ export default function ViewArticle({ params }) {
                     </svg>
                   </Link>
                 </div>
-                {!isSubscribed ? (
+                {!isSubscribed && userToken ? (
                   <div className="newsSubscription">
                     <h3>
                       Abonnez-vous à notre newsletter
@@ -771,8 +775,7 @@ export default function ViewArticle({ params }) {
                   </div>
                 ) : (
                   <p>
-                    Vous êtes inscrit à nos newsletters ! Merci de votre
-                    engagement !
+                    {userToken ? 'Vous êtes inscrit à nos newsletters ! Merci de votre engagement !' : ''}
                   </p>
                 )}
               </div>
@@ -780,7 +783,7 @@ export default function ViewArticle({ params }) {
           </div>
           <div className="content fit articleComments">
             <div className="commentSection">
-              <div className="reflect">
+              {userToken && <div className="reflect">
                 <h2>
                   Cet article vous a fait réfléchir&nbsp;
                   <span style={{ color: "var(--themeAccent)" }}>?</span>
@@ -802,13 +805,14 @@ export default function ViewArticle({ params }) {
                     ></path>
                   </svg>
                 </Link>
-              </div>
+              </div>}
+              
               <div className="commentInput">
                 <h2>
                   Commentaires
                   <span style={{ color: "var(--themeAccent)" }}>.</span>
                 </h2>
-                <form onSubmit={handleComment} className="commentOnTheArticle">
+                {userToken && <form onSubmit={handleComment} className="commentOnTheArticle">
                   <textarea
                     name="content"
                     placeholder="Écrivez votre commentaire ici..."
@@ -817,7 +821,7 @@ export default function ViewArticle({ params }) {
                   <button type="submit" className="simpler">
                     Envoyer
                   </button>
-                </form>
+                </form>}
               </div>
               <div className="commentsList">
                 {commentsTree && commentsTree.length > 0 ? (
@@ -896,7 +900,7 @@ export default function ViewArticle({ params }) {
                         </Link>
                       </div>
                       <Link className="simpler" href={`/${article._id}`}>
-                        Lire l&apos;article.
+                        lire l&apos;article.
                       </Link>
                       </div>
                       

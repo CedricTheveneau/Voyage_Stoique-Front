@@ -257,7 +257,7 @@ export default function Header() {
                 className={blogClassList}
                 title="Access the home page"
               >
-                blog<span style={{ color: "var(--themeAccent)" }}>.</span>
+                diatribe<span style={{ color: "var(--themeAccent)" }}>.</span>
               </Link>
               {userRole === "admin" && (
                 <ul className="dropdown">
@@ -267,7 +267,7 @@ export default function Header() {
                       className="link"
                       title="Create a new blog post for Voyage Stoïque"
                     >
-                      Nouvel article
+                      nouvel article
                     </Link>
                   </li>
                   <li>
@@ -276,7 +276,7 @@ export default function Header() {
                       className="link"
                       title="Access the blog admin panel"
                     >
-                      Admin
+                      admin
                     </Link>
                   </li>
                 </ul>
@@ -289,7 +289,7 @@ export default function Header() {
                 className={thinkingCornerClassList}
                 title="Access the news page"
               >
-                thinking corner
+                agora
                 <span style={{ color: "var(--themeAccent)" }}>.</span>
               </Link>
               {userRole === "admin" && (
@@ -300,7 +300,7 @@ export default function Header() {
                       className="link"
                       title="Access the thinking corner admin panel"
                     >
-                      Admin
+                      admin
                     </Link>
                   </li>
                 </ul>
@@ -313,7 +313,7 @@ export default function Header() {
                 className={profileClassList}
                 title="Access the profile page"
               >
-                profil<span style={{ color: "var(--themeAccent)" }}>.</span>
+                persona<span style={{ color: "var(--themeAccent)" }}>.</span>
               </Link>
               <ul className="dropdown">
                 {isAuthenticated ? (
@@ -324,7 +324,7 @@ export default function Header() {
                         className="link"
                         title="Log out from Voyage Stoïque"
                       >
-                        Déconnexion
+                        déconnexion
                       </button>
                     </form>
                   </li>
@@ -335,7 +335,7 @@ export default function Header() {
                       className="link"
                       title="Log into your account on Voyage Stoïque"
                     >
-                      Connexion
+                      connexion
                     </Link>
                   </li>
                 )}

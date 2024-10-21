@@ -134,7 +134,7 @@ export default function Profile({ params }) {
     };
 
     fetchUser();
-  }, [id]);
+  }, [id, userToken]);
 
   useEffect(() => {
     if (user) {
@@ -287,7 +287,7 @@ export default function Profile({ params }) {
       };
       fetchRemainingData();
     }
-  }, [user]);
+  }, [user, id, userToken]);
 
   if (error) {
     return <div>Error: {error}</div>;
