@@ -193,7 +193,7 @@ export default function Home() {
               height="1117"
               alt="The article's cover"
             />
-            <form
+            {userToken && <form
               className="saveArticle"
               onSubmit={(event) => handleSave(event)}
             >
@@ -233,7 +233,8 @@ export default function Home() {
                   </svg>
                 )}
               </button>
-            </form>
+            </form>}
+            
             <div className="searchData">
               <span className="articleCategory">{article.category}</span> |{" "}
               {article.keywords?.length > 0
@@ -285,7 +286,7 @@ export default function Home() {
                         height="150"
                         alt="The article's cover"
                       />
-                      <form
+                      {userToken && <form
                         className="saveArticle"
                         onSubmit={(event) => handleSave(event, article._id)}
                       >
@@ -325,7 +326,8 @@ export default function Home() {
                             </svg>
                           )}
                         </button>
-                      </form>
+                      </form>}
+                      
                       <Link title="Accédez à l'article" href={`/${article._id}`}>
                       <div className="articleMainInfo">
                       <span className="articleCategory">{article.category}</span>
@@ -457,7 +459,7 @@ export default function Home() {
                         height="150"
                         alt="The article's cover"
                       />
-                      <form
+                      {userToken && <form
                         className="saveArticle"
                         onSubmit={(event) => handleSave(event, article._id)}
                       >
@@ -497,7 +499,8 @@ export default function Home() {
                             </svg>
                           )}
                         </button>
-                      </form>
+                      </form>}
+                      
                       <div className="articleMainInfo">
                       <span className="articleCategory">{article.category}</span>
                         <h3>{article.title}
