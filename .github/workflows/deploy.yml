@@ -25,12 +25,9 @@ jobs:
           git config --global user.name "CedricTheveneau"
           git config --global user.email "theveneaucedric@gmail.com"
 
-      - name: Set the parent repo remote
+      - name: Pull latest changes from parent repo
         run: |
-          git remote set-url origin git@github.com:CedricTheveneau/Voyage_Stoique.git
-
-      - name: Verify remote URL
-        run: git remote -v
+          git pull origin main --rebase
 
       - name: Update submodules to the latest version
         run: |
