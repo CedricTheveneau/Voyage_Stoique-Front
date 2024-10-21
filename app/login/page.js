@@ -64,7 +64,7 @@ const handleChangePassword = (e) => {
 
   return (
     <main className="signup">
-      <h2>Se connecter</h2>
+      <h2>Se connecter<span style={{ color: "var(--themeAccent)" }}>.</span></h2>
       
       <form onSubmit={handleSubmit}>
         

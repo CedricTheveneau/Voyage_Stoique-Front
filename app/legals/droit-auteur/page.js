@@ -4,7 +4,7 @@ export default function DroitAuteur() {
   return (
     <main className="legals">
         <div className="content fit">
-            <h2 className="centered">Droit d&apos;auteur</h2><br/>
+            <h2 className="centered">Droit d&apos;auteur<span style={{ color: "var(--themeAccent)" }}>.</span></h2><br/>
             <p>Ici, vous pourrez retrouver tout ce que vous voudriez savoir concernant le droit d&apos;auteur relatif au contenu interne et externe à la plateforme. Vous retrouverez également des informations concernant les lois qui s&apos;appliquent sur ce
                 dernier.</p>
             <p>Veuillez noter que, à tout moment, vous pouvez envoyer une requête d&apos;information à propos de ces

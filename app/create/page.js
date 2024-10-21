@@ -101,7 +101,7 @@ export default function CreateArticle() {
 
   return (
     <main className="articleCreation">
-      <h2>Créer un article</h2>
+      <h2>Créer un article<span style={{ color: "var(--themeAccent)" }}>.</span></h2>
       {error && <p style={{ color: "red" }}>Erreur : {error}</p>}
       {loading && <p>Chargement...</p>} {/* Afficher le statut de chargement */}
       <form onSubmit={handleSubmit} encType="multipart/form-data">

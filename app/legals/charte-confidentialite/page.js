@@ -4,7 +4,7 @@ export default function CharteConfidentialite() {
   return (
     <main className="legals">
         <div className="content fit">
-            <h2 className="centered">Charte de confidentialité</h2><br/>
+            <h2 className="centered">Charte de confidentialité<span style={{ color: "var(--themeAccent)" }}>.</span></h2><br/>
             <p>Ici, vous pourrez retrouver tout ce que vous voudriez savoir concernant l&apos;la collecte de données sur le site, les raisons de leur collecte et à quelles fins elles sont utilisées. Vous retrouverez également des informations concernant les lois qui s&apos;y appliquent.</p>
             <p>Veuillez noter que, à tout moment, vous pouvez envoyer une requête d&apos;information à propos de ces
                 informations ; en envoyant un email à cette adresse <Link href="mailto:dpo.voyagestoique@gmail.com" title="Envoyez un email pour demander des informations relatives au site">dpo.voyagestoique@gmail.com</Link>.</p>

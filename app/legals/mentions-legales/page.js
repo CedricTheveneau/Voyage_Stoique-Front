@@ -4,7 +4,7 @@ export default function MentionsLegales() {
   return (
     <main className="legals">
         <div className="content fit">
-            <h2 className="centered">Mentions légales</h2><br/>
+            <h2 className="centered">Mentions légales<span style={{ color: "var(--themeAccent)" }}>.</span></h2><br/>
             <p>Ici, vous pourrez retrouver tout ce que vous voudriez savoir concernant l&apos;utilisation du site, de sa
                 conception, du propriétaire ainsi que des informations concernant les lois qui s&apos;appliquent sur ce
                 dernier.</p>

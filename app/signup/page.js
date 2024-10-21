@@ -46,7 +46,7 @@ export default function SignUp() {
 
   return (
     <main className="signup fit-mobile">
-      <h2>Créer un compte</h2>
+      <h2>Créer un compte<span style={{ color: "var(--themeAccent)" }}>.</span></h2>
       <form onSubmit={handleSubmit}>
         <div className="formLine">
       <label htmlFor="username" >Votre pseudo</label>
