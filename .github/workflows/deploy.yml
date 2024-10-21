@@ -32,7 +32,7 @@ jobs:
 
       - name: Update submodules to the latest version
         run: |
-          git submodule update --remote --merge
+          git submodule update --remote --merge --allow-unrelated-histories
 
       - name: Push changes to parent repo
         run: |
