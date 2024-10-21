@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useGlobalContext } from '../layout/GlobalContext';
+import Link from "next/link";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -91,6 +92,10 @@ const handleChangePassword = (e) => {
                             <path d="M77.5815 20.3378C78.5578 19.3615 78.5578 17.7786 77.5815 16.8023L61.6716 0.892399C60.6953 -0.0839119 59.1124 -0.0839119 58.1361 0.892399C57.1597 1.86871 57.1597 3.45162 58.1361 4.42793L72.2782 18.5701L58.1361 32.7122C57.1597 33.6885 57.1597 35.2714 58.1361 36.2477C59.1124 37.224 60.6953 37.224 61.6716 36.2477L77.5815 20.3378ZM0.813721 21.0701H75.8137V16.0701H0.813721V21.0701Z"></path>
                         </svg></button>
       </form>
+      <div className="signupPrompt">
+      <h3>Vous n&apos;avez pas de compte ?</h3>
+      <Link className="link" href="/signup">Créez en un !</Link>
+      </div>
       {errorMessage && <p>{errorMessage}</p>}
     </main>
   );

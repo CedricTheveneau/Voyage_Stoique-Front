@@ -8,16 +8,16 @@ export default function CreateArticle() {
   const { isAuthenticated, userId, userRole, userToken, apiGateway } = useGlobalContext();
   const [title, setTitle] = useState("");
   const [intro, setIntro] = useState("");
-  const [cover, setCover] = useState(null); // Change initial state to null
+  const [cover, setCover] = useState(null);
   const [content, setContent] = useState("");
-  const [audio, setAudio] = useState(null); // Change initial state to null
+  const [audio, setAudio] = useState(null);
   const [keywords, setKeywords] = useState("");
   const [category, setCategory] = useState("Admin");
   const [readingTime, setReadingTime] = useState(0);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false); // Optionnel : état de chargement
+  const [loading, setLoading] = useState(false);
 
-  const categories = ['admin', 'user'];
+  const categories = ["méditation", "portrait", "présentation d’œuvre", "concept", "analyse"];
   const router = useRouter();
 
   useEffect(() => {

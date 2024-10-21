@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Socials() {
  return (
   <div className="socials">
-  <p>Follow us<span style={{"color": "var(--themeAccent)"}}>.</span></p>
+  <p>suivez nous<span style={{"color": "var(--themeAccent)"}}>.</span></p>
   <div className="icons"><Link id="DiscordSocials" href="https://discord.gg/URGXAVbPYj"
           title="Join our Discord server"><svg alt="Discord logo" width="39" height="40" viewBox="0 0 39 40"
               fill="none" xmlns="http://www.w3.org/2000/svg">
