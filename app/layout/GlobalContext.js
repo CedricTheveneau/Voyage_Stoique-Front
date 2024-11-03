@@ -19,7 +19,11 @@ export const GlobalProvider = ({ children }) => {
   const [userUsername, setUserUsername] = useState(false);
   const [userRole, setUserRole] = useState(null);
   const [currentPath, setCurrentPath] = useState(null);
+  const [navbarToggle, setNavbarToggle] = useState(false);
   const [query, setQuery] = useState("");
+  const [commentOrdering, setCommentOrdering] = useState("date");
+  const [postOrdering, setPostOrdering] = useState("date");
+  const categories = ["méditation", "portrait", "présentation d’œuvre", "concept", "analyse"];
   const pathname = usePathname();
   const apiGateway = process.env.NEXT_PUBLIC_API_GATEWAY_URI;
 
@@ -36,18 +40,44 @@ export const GlobalProvider = ({ children }) => {
     });
   };
   
-  useEffect(() => {
-    const token = localStorage.getItem("user");
-    if (token) {
-      setUserToken(JSON.parse(token).token);
-    setUserId(JSON.parse(token).user._id)
-    setUserRole(JSON.parse(token).user.role)
-    setUserUsername(JSON.parse(token).user.username);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const token = localStorage.getItem("user");
+  //   if (token) {
+  //     setIsAuthenticated(true)
+  //     setUserToken(JSON.parse(token).token);
+  //   setUserId(JSON.parse(token).user._id)
+  //   setUserRole(JSON.parse(token).user.role)
+  //   setUserUsername(JSON.parse(token).user.username);
+  //   }
+  // }, []);
 
   useEffect(() => {
-    setCurrentPath(pathname);
+    const tokenData = JSON.parse(localStorage.getItem("user"));
+    if (tokenData) {
+      const { token, user } = tokenData;
+  
+      const payloadBase64 = token.split('.')[1];
+      const decodedPayload = JSON.parse(atob(payloadBase64));
+      const isTokenExpired = decodedPayload.exp * 1000 < Date.now();
+  
+      if (!isTokenExpired) {
+        setIsAuthenticated(true);
+        setUserToken(token);
+        setUserId(user._id);
+        setUserRole(user.role);
+        setUserUsername(user.username);
+      } else {
+        localStorage.removeItem("user");
+        setIsAuthenticated(false);
+      }
+    }
+  }, [isAuthenticated]);
+
+  useEffect(() => {
+    if (!pathname.includes('/login') && !pathname.includes('/signup')) {
+      setCurrentPath(pathname);
+    }
+    {!pathname.includes('/search') && setNavbarToggle(false);}
   }, [pathname]);
 
   useEffect(() => {
@@ -80,7 +110,7 @@ export const GlobalProvider = ({ children }) => {
   }, [userId, userToken]);
 
   return (
-    <GlobalContext.Provider value={{createMarkup, formatDate, userToken, isAuthenticated, isSubscribed, userId, userUsername, userRole, query, currentPath, apiGateway, setIsAuthenticated, setIsSubscribed, setUserId, setUserUsername, setUserRole, setQuery, setCurrentPath }}>
+    <GlobalContext.Provider value={{createMarkup, formatDate, categories, userToken, isAuthenticated, isSubscribed, userId, userUsername, userRole, query, currentPath, apiGateway, commentOrdering, setCommentOrdering, setIsAuthenticated, setIsSubscribed, setUserId, setUserUsername, setUserRole, setQuery, setCurrentPath, navbarToggle, setNavbarToggle, postOrdering, setPostOrdering }}>
       {children}
     </GlobalContext.Provider>
   );

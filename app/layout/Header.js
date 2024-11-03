@@ -7,10 +7,10 @@ import { useGlobalContext } from "./GlobalContext";
 import { useEffect, useState } from "react";
 
 export default function Header() {
-  const { currentPath, isAuthenticated, userId, userRole, setIsAuthenticated, setUserRole, query, setQuery } = useGlobalContext();
+  const { currentPath, isAuthenticated, userId, userRole, setIsAuthenticated, setUserRole, query, setQuery, navbarToggle, setNavbarToggle } = useGlobalContext();
   const [localQuery, setLocalQuery] = useState(query);
   const [blogClassList, setBlogCLassList] = useState("link active");
-  const [thinkingCornerClassList, setThinkingCornerCLassList] = useState("link");
+  const [agoraClassList, setAgoraClassList] = useState("link");
   const [profileClassList, setProfileCLassList] = useState("link");
   const [profileLink, setProfileLink] = useState("/login");
   const router = useRouter();
@@ -42,19 +42,19 @@ export default function Header() {
       // Cette fonction sera appelée à chaque fois que isAuthenticated change
       if (currentPath === "/") {
         setBlogCLassList("link active");
-        setThinkingCornerCLassList("link");
+        setAgoraClassList("link");
         setProfileCLassList("link");
-      } else if (currentPath.includes("/thinking-corner")) {
-        setThinkingCornerCLassList("link active");
+      } else if (currentPath.includes("/agora")) {
+        setAgoraClassList("link active");
         setBlogCLassList("link");
         setProfileCLassList("link");
       } else if (currentPath.includes("/profile")) {
         setProfileCLassList("link active");
-        setThinkingCornerCLassList("link");
+        setAgoraClassList("link");
         setBlogCLassList("link");
       } else {
         setBlogCLassList("link");
-        setThinkingCornerCLassList("link");
+        setAgoraClassList("link");
         setProfileCLassList("link");
       }
     }
@@ -75,6 +75,7 @@ export default function Header() {
     setIsAuthenticated(false);
     setUserRole(null);
     router.push("/");
+    return;
   };
 
   return (
@@ -107,13 +108,13 @@ export default function Header() {
             </p>
           </div>
         </div>
-        <div className="navbar">
+        <div className={navbarToggle ? 'navbar active' : 'navbar'}>
           <ul className="links">
             <li>
-              <button className="navbarToggle" aria-label="Hamburger menu">
+              <button onClick={() => setNavbarToggle(!navbarToggle)} className="navbarToggle" aria-label="Hamburger menu">
                 <svg
                   alt="Hamburger menu"
-                  className="navbarToggleSVG toggle"
+                  className={!navbarToggle ? 'navbarToggleSVG toggle' : 'navbarToggleSVG'}
                   style={{ scale: "1.2", transform: "translateY(2px)" }}
                   width="24"
                   height="24"
@@ -142,7 +143,7 @@ export default function Header() {
                 </svg>
                 <svg
                   alt="Close hamburger menu"
-                  className="navbarToggleSVG"
+                  className={navbarToggle ? 'navbarToggleSVG toggle' : 'navbarToggleSVG'}
                   style={{ scale: "1.8", transform: "translateY(1.5px)" }}
                   width="24"
                   height="24"
@@ -285,9 +286,9 @@ export default function Header() {
             <span className="navbarSeparator">|</span>
             <li>
               <Link
-                href="/thinking-corner"
-                className={thinkingCornerClassList}
-                title="Access the news page"
+                href="/agora"
+                className={agoraClassList}
+                title="Access the agora page"
               >
                 agora
                 <span style={{ color: "var(--themeAccent)" }}>.</span>
@@ -296,9 +297,9 @@ export default function Header() {
                 <ul className="dropdown">
                   <li>
                     <Link
-                      href="/admin/thinking-corner"
+                      href="/admin/agora"
                       className="link"
-                      title="Access the thinking corner admin panel"
+                      title="Access the agora admin panel"
                     >
                       admin
                     </Link>

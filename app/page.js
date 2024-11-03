@@ -9,6 +9,7 @@ export default function Home() {
     useGlobalContext();
     const [article, setArticle] = useState(null);
     const [recentArticles, setRecentArticles] = useState([]);
+    const [topArticles, setTopArticles] = useState([]);
     const [author, setAuthor] = useState(null);
     const [recommendedArticles, setRecommendedArticles] = useState([]);
   const [error, setError] = useState("");
@@ -38,6 +39,16 @@ export default function Home() {
               : article
           )
         );
+
+        setRecentArticles((prevRecommendations) =>
+          prevRecommendations.map((article) =>
+            article._id === articleId
+              ? { ...article, savedNumber: updatedArticleSave }
+              : article
+          )
+        );
+
+        setArticle({ ...article, savedNumber: updatedArticleSave });
 
       try {
         const response = await fetch(
@@ -142,6 +153,24 @@ export default function Home() {
       } catch (error) {
         setError(error.message);
       }
+
+      try {
+        const response = await fetch(`${apiGateway}/articles/top`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const articlesData = await response.json();
+        setTopArticles(articlesData);
+      } catch (error) {
+        setError(error.message);
+      }
     };
 
     fetchArticleAndAuthor();
@@ -183,7 +212,6 @@ export default function Home() {
 
   return (
     <main>
-      {error && <p>{error}</p>}
       {article ? (
         <>
           <div className="hero article">
@@ -195,7 +223,7 @@ export default function Home() {
             />
             {userToken && <form
               className="saveArticle"
-              onSubmit={(event) => handleSave(event)}
+              onSubmit={(event) => handleSave(event, article._id)}
             >
               <button
                 type="submit"
@@ -278,6 +306,86 @@ export default function Home() {
                     <div className="articleCardsContainer">
                       {recentArticles.length > 0 ? (
                   recentArticles.map((article) => (
+                    <div key={article._id} className="articleCard">
+                      
+                      <Image
+                        src={article.cover}
+                        width="300"
+                        height="150"
+                        alt="The article's cover"
+                      />
+                      {userToken && <form
+                        className="saveArticle"
+                        onSubmit={(event) => handleSave(event, article._id)}
+                      >
+                        <button
+                          type="submit"
+                          className={`saveButton ${
+                            article.savedNumber.includes(userId) ? "active" : ""
+                          }`}
+                        >
+                          {article.savedNumber.includes(userId) ? (
+                            <svg
+                              alt="Icône d'ajout aux articles enregistrés"
+                              width="28"
+                              height="38"
+                              viewBox="0 0 28 38"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M0.25 37.3334V4.10419C0.25 2.20568 1.789 0.666687 3.6875 0.666687H24.3125C26.211 0.666687 27.75 2.20568 27.75 4.10419V37.3334L14 29.3125L0.25 37.3334Z"
+                                fill="#141414"
+                              />
+                            </svg>
+                          ) : (
+                            <svg
+                              alt="Icône d'ajout aux articles enregistrés"
+                              width="30"
+                              height="40"
+                              viewBox="0 0 30 40"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M0 5C0 2.23858 2.23858 0 5 0H25C27.7614 0 30 2.23858 30 5V38.75C30 39.211 29.7463 39.6346 29.3398 39.8521C28.9334 40.0696 28.4402 40.0458 28.0566 39.7901L15 32.7523L1.94338 39.7901C1.5598 40.0458 1.06662 40.0696 0.660178 39.8521C0.253731 39.6346 0 39.211 0 38.75V5ZM5 2.5C3.61929 2.5 2.5 3.61929 2.5 5V36.4144L14.3066 30.2099C14.7265 29.93 15.2735 29.93 15.6934 30.2099L27.5 36.4144V5C27.5 3.61929 26.3807 2.5 25 2.5H5Z"
+                                fill="#141414"
+                              />
+                            </svg>
+                          )}
+                        </button>
+                      </form>}
+                      
+                      <Link title="Accédez à l'article" href={`/${article._id}`}>
+                      <div className="articleMainInfo">
+                      <span className="articleCategory">{article.category}</span>
+                        <h3>{article.title}
+                        <span style={{ color: "var(--themeAccent)" }}>.</span></h3>
+                      <div className="intro" dangerouslySetInnerHTML={createMarkup(article.intro)}/>
+                      <div className="articleMainData">
+                        <p>{formatDate(article.publishDate)}</p> •{" "}
+                        <Link href={`/profile/${article.author}`}>
+                          {author}
+                        </Link>
+                      </div>
+                      <Link className="simpler" href={`/${article._id}`}>
+                        lire l&apos;article.
+                      </Link>
+                      </div>
+                      </Link>
+                    </div>
+                  ))
+                ) : (
+                  <p>Aucun article pour l&apos;instant.</p>
+                )}
+                    </div>
+                  
+                  </div>
+                  <div className="listing">
+                    <h2>nos articles les plus populaires<span style={{ color: "var(--themeAccent)" }}>.</span></h2>
+                    <div className="articleCardsContainer popular">
+                      {topArticles.length > 0 ? (
+                  topArticles.map((article) => (
                     <div key={article._id} className="articleCard">
                       
                       <Image

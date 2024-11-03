@@ -202,7 +202,6 @@ export default function Profile({ params }) {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${userToken}`,
             },
           });
 
@@ -217,11 +216,10 @@ export default function Profile({ params }) {
         }
         if (user && user.role === "admin") {
           try {
-            const response = await fetch(`${apiGateway}/articles/admin/`, {
+            const response = await fetch(`${apiGateway}/articles/`, {
               method: "GET",
               headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${userToken}`,
               },
             });
 
@@ -240,7 +238,6 @@ export default function Profile({ params }) {
               method: "GET",
               headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${userToken}`,
               },
             });
 
@@ -268,7 +265,6 @@ export default function Profile({ params }) {
               method: "GET",
               headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${userToken}`,
               },
             }
           );
