@@ -16,7 +16,7 @@
   --themeLight70: #F9F9F9B3;
   --themeLight50: #F9F9F980;
   --themeLight10: #F9F9F94A;
-  --themeOverlay: #3d3d3d;
+  --themeOverlay: #eeeeee;
   --themeDark: #141414;
   --themeDark80: #141414CC;
   --themeDark70: #141414B3;
@@ -3294,6 +3294,7 @@ body {
             margin-bottom: 20px;
             border-radius: 10px;
             overflow: hidden;
+          height: fit-content;
 
             >button {
               color: var(--themeDark);
@@ -3405,7 +3406,7 @@ body {
                   >button {
                     border: transparent;
                     background-color: transparent;
-                    color: #f9f9f980;
+                    color: var(--themeDark80);
                     padding: 5px;
                   }
 
@@ -4879,6 +4880,7 @@ body {
           margin-bottom: 20px;
           border-radius: 10px;
           overflow: hidden;
+          height: fit-content;
 
           >button {
             color: var(--themeDark);
@@ -5391,6 +5393,7 @@ body.dark {
   --themeLight70: #141414B3;
   --themeLight50: #14141480;
   --themeLight10: #1414144A;
+  --themeOverlay: #3d3d3d;
   --themeDark: #F9F9F9;
   --themeDark80: #F9F9F9CC;
   --themeDark70: #F9F9F9B3;
@@ -6209,6 +6212,11 @@ button:hover>svg.ctaArrow.pulse {
   ul.dropdown>li>form>button {
     color: var(--themeDark) !important;
     padding: 0 !important;
+  }
+
+  input[type="checkbox"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
   }
 
   main {
