@@ -172,7 +172,7 @@ const moveContentInfo = () => {
         }
     }
 }
-if (articleContentInfo && articleAside && originalParent) {
+if (articleContentInfo && articleAside && originalParent && !window.location.href.includes('agora')) {
   window.addEventListener('scroll', moveContentInfo); 
 }
 
@@ -187,27 +187,6 @@ if (commentArea) {
   e.style.height = e.scrollHeight + "px";
 });
 });
-}
-
-//! ---------- RESPONSIVE MENU TOGGLE ---------- !//
-
-//* Set needed variables
-const menuToggle = document.querySelector(".navbarToggle");
-const toggleSvgs = document.querySelectorAll(".navbarToggleSVG");
-const navbar = document.querySelectorAll(".navbar")[0];
-
-//* Detects click on menuToggle and changes the displayed SVG and saves in local storage the theme preference
-if (menuToggle && toggleSvgs) {
-  menuToggle.addEventListener("click", () => {
-    toggleSvgs.forEach((e) => {
-      e.classList.toggle("toggle");
-    });
-    if (toggleSvgs[0].classList.contains("toggle")) {
-      navbar.classList.remove("active");
-    } else {
-      navbar.classList.add("active");
-    }
-  });
 }
 
 //* Prevents the keyframe on page load

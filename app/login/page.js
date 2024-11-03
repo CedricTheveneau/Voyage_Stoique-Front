@@ -9,7 +9,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
-  const { setIsAuthenticated, setUserId, setUserRole, setIsSubscribed, setUserUsername } = useGlobalContext();
+  const { setIsAuthenticated, setUserId, setUserRole, setIsSubscribed, setUserUsername, currentPath } = useGlobalContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,7 +45,13 @@ export default function Login() {
       setUserUsername(data.updatedUser.username);
       setUserRole(data.updatedUser.role);
       setIsSubscribed(data.updatedUser.newsSubscription);
-      router.push("/");
+      if (currentPath) {
+        router.push(currentPath);
+      } else {
+        router.push("/");
+      }
+      
+      return;
     } catch (error) {
       console.error("Erreur lors de la requête de connexion :", error);
       setErrorMessage(error.message); // Afficher le message d'erreur

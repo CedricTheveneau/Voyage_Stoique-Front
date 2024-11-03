@@ -2,17 +2,15 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { useGlobalContext } from "../layout/GlobalContext";
+import { useGlobalContext } from "../../layout/GlobalContext";
 
-export default function ViewArticle({ params }) {
+export default function ViewPost({ params }) {
   const { userToken, isSubscribed, setIsSubscribed, userId, userUsername, createMarkup, formatDate, apiGateway, commentOrdering, setCommentOrdering, userRole, isAuthenticated } =
     useGlobalContext();
   const { id } = params;
   const [article, setArticle] = useState(null);
-  const [author, setAuthor] = useState(null);
   const [comments, setComments] = useState([]);
   const [headings, setHeadings] = useState([]);
-  const [recommendedArticles, setRecommendedArticles] = useState([]);
   const [error, setError] = useState("");
   const [commentsTree, setCommentsTree] = useState([]);
   const [answerComment, setAnswerComment] = useState(null);
@@ -55,7 +53,7 @@ export default function ViewArticle({ params }) {
     event.preventDefault();
 
     try {
-      const response = await fetch(`${apiGateway}/articles/upvote/${id}`, {
+      const response = await fetch(`${apiGateway}/posts/upvote/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -76,7 +74,7 @@ export default function ViewArticle({ params }) {
 
       try {
         const response = await fetch(
-          `${apiGateway}/auth/upvoteArticle/${userId}`,
+          `${apiGateway}/auth/upvotePost/${userId}`,
           {
             method: "PUT",
             headers: {
@@ -158,7 +156,7 @@ export default function ViewArticle({ params }) {
     event.preventDefault();
 
     try {
-      const response = await fetch(`${apiGateway}/articles/save/${articleId}`, {
+      const response = await fetch(`${apiGateway}/posts/save/${articleId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -191,7 +189,7 @@ export default function ViewArticle({ params }) {
 
       try {
         const response = await fetch(
-          `${apiGateway}/auth/saveArticle/${userId}`,
+          `${apiGateway}/auth/savePost/${userId}`,
           {
             method: "PUT",
             headers: {
@@ -262,7 +260,7 @@ export default function ViewArticle({ params }) {
 
       // Mise à jour de l'article avec le nouvel ID de commentaire
       const articleResponse = await fetch(
-        `${apiGateway}/articles/comment/${id}`,
+        `${apiGateway}/posts/comment/${id}`,
         {
           method: "PUT",
           headers: {
@@ -318,7 +316,7 @@ export default function ViewArticle({ params }) {
       ].join(",");
   
       // 2. Mise à jour de l'article pour retirer les commentaires supprimés
-      const articleResponse = await fetch(`${apiGateway}/articles/removeCommentsByIds?ids=${deletedIds}`, {
+      const articleResponse = await fetch(`${apiGateway}/posts/removeCommentsByIds?ids=${deletedIds}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -617,7 +615,7 @@ export default function ViewArticle({ params }) {
   useEffect(() => {
     const fetchArticleAndAuthor = async () => {
       try {
-        const response = await fetch(`${apiGateway}/articles/${id}`, {
+        const response = await fetch(`${apiGateway}/posts/${id}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -636,7 +634,7 @@ export default function ViewArticle({ params }) {
         if (userId) {
                   try {
           const response = await fetch(
-            `${apiGateway}/auth/articlesHistory/${userId}`,
+            `${apiGateway}/auth/postsHistory/${userId}`,
             {
               method: "PUT",
               headers: {
@@ -657,7 +655,7 @@ export default function ViewArticle({ params }) {
         }
         try {
           const response = await fetch(
-            `${apiGateway}/articles/read/${id}`,
+            `${apiGateway}/posts/read/${id}`,
             {
               method: "PUT",
               headers: {
@@ -718,7 +716,6 @@ export default function ViewArticle({ params }) {
           }
 
           const userData = await authorResponse.json();
-          setAuthor(userData.user.username);
         }
 
       } catch (error) {
@@ -728,40 +725,6 @@ export default function ViewArticle({ params }) {
 
     fetchArticleAndAuthor();
   }, [id]);
-
-  useEffect(() => {
-    const fetchReco = async () => {
-      try {
-        const recommendationsResponse = await fetch(
-          `${apiGateway}/articles/recommendations/${id}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${userToken}`,
-            },
-          }
-        );
-  
-        // Remplacer 'response' par 'recommendationsResponse'
-        if (!recommendationsResponse.ok) {
-          throw new Error(
-            "Une erreur est survenue lors de la récupération de recommandations d'articles"
-          );
-        }
-  
-        const recommendations = await recommendationsResponse.json(); // N'oubliez pas de convertir la réponse en JSON
-  
-        setRecommendedArticles(recommendations); // Vérifiez si vous devez peut-être traiter recommendations ici
-      } catch (error) {
-        console.error(
-          "Erreur lors de la récupération des recommandations:",
-          error
-        );
-      }
-    }
-    fetchReco()
-  }, [article, userToken])
 
   useEffect(() => {
     if (article) {
@@ -785,12 +748,13 @@ export default function ViewArticle({ params }) {
       {article ? (
         <>
           <div className="hero article">
-            <Image
+            {article.cover && <Image
               src={encodeURI(article.cover)}
               width="1728"
               height="1117"
               alt="The article's cover"
-            />
+            />}
+
             {userToken && <form
               className="saveArticle"
               onSubmit={(event) => handleSave(event)}
@@ -849,20 +813,12 @@ export default function ViewArticle({ params }) {
                   {article.title}
                   <span style={{ color: "var(--themeAccent)" }}>.</span>
                 </h2>
-                <div
-                  className="articleIntro"
-                  dangerouslySetInnerHTML={createMarkup(article.intro)} // Injecter du HTML nettoyé
-                />
                 <div className="articleMetadatas">
                   <div className="firstLine">
                     <p>{formatDate(article.publishDate)}{article.publishDate !== article.lastModifiedDate
               ? ` (Modifié le ${formatDate(article.lastModifiedDate)})`
               : ""}</p> •{" "}
-                    <Link href={`/profile/${article.author}`}>{author}</Link> •{" "}
-                    <p>
-                      Lecture de {article.readingTime}{" "}
-                      {article.readingTime <= 1 ? "minute" : "minutes"}
-                    </p>
+                    <Link href={`/profile/${article.author}`}>{article.authorUsername}</Link>
                   </div>
                   <div className="secondLine">
                   <form onSubmit={handleUpvote}>
@@ -892,7 +848,7 @@ export default function ViewArticle({ params }) {
                   </div>
                 </div>
               </div>
-              <div className="articleContentInfo">
+              {headings.length > 0 && <div className="articleContentInfo">
                 <div className="heroSummary">
                   <h2>
                     sommaire
@@ -908,22 +864,8 @@ export default function ViewArticle({ params }) {
                     ))}
                   </ul>
                 </div>
-                <div className="heroAudio">
-                  <h2>
-                    écoutez l&apos;article
-                    <span style={{ color: "var(--themeAccent)" }}>.</span>
-                  </h2>
-                  <audio
-                    className="articleAudio"
-                    controls
-                    src={article.audio}
-                    style={{ width: "100%", maxWidth: "500px" }} // Optionnel : pour ajuster la largeur du lecteur
-                  >
-                    Votre navigateur ne prend pas en charge l&apos;élément
-                    audio.
-                  </audio>
-                </div>
               </div>
+              }
             </div>
           </div>
           <div className="content fit articleCore">
@@ -1025,30 +967,6 @@ export default function ViewArticle({ params }) {
           </div>
           <div className="content fit articleComments">
             <div className="commentSection">
-              {userToken && <div className="reflect">
-                <h2>
-                  Cet article vous a fait réfléchir&nbsp;
-                  <span style={{ color: "var(--themeAccent)" }}>?</span>
-                </h2>
-                <Link className="simpler" href="/agora">
-                  Méditer dessus.{" "}
-                  <svg
-                    alt="Arrow"
-                    className="ctaArrow"
-                    width="79"
-                    height="30"
-                    viewBox="0 0 79 37"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M77.5815 20.3378C78.5578 19.3615 78.5578 17.7786 77.5815 16.8023L61.6716 0.892399C60.6953 -0.0839119 59.1124 -0.0839119 58.1361 0.892399C57.1597 1.86871 57.1597 3.45162 58.1361 4.42793L72.2782 18.5701L58.1361 32.7122C57.1597 33.6885 57.1597 35.2714 58.1361 36.2477C59.1124 37.224 60.6953 37.224 61.6716 36.2477L77.5815 20.3378ZM0.813721 21.0701H75.8137V16.0701H0.813721V21.0701Z"
-                      fill="#F9F9F9"
-                    ></path>
-                  </svg>
-                </Link>
-              </div>}
-              
               <div className="commentInput">
                 <h2>
                   Commentaires
@@ -1072,88 +990,6 @@ export default function ViewArticle({ params }) {
                 ) : (
                   <p>Aucun commentaire pour l&apos;instant.</p>
                 )}
-              </div>
-            </div>
-            <div className="articleAside">
-              <div className="reco">
-                <h3>
-                  articles recommandés
-                  <span style={{ color: "var(--themeAccent)" }}>.</span>
-                </h3>
-                <div className="articleList">
-                  {recommendedArticles.length > 0 ? (
-                  recommendedArticles.map((article) => (
-                    <div key={article._id} className="articleCard">
-                      <Image
-                        src={article.cover}
-                        width="300"
-                        height="150"
-                        alt="The article's cover"
-                      />
-                      <form
-                        className="saveArticle"
-                        onSubmit={(event) => handleSave(event, article._id)}
-                      >
-                        <button
-                          type="submit"
-                          className={`saveButton ${
-                            article.savedNumber.includes(userId) ? "active" : ""
-                          }`}
-                        >
-                          {article.savedNumber.includes(userId) ? (
-                            <svg
-                              alt="Icône d'ajout aux articles enregistrés"
-                              width="28"
-                              height="38"
-                              viewBox="0 0 28 38"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M0.25 37.3334V4.10419C0.25 2.20568 1.789 0.666687 3.6875 0.666687H24.3125C26.211 0.666687 27.75 2.20568 27.75 4.10419V37.3334L14 29.3125L0.25 37.3334Z"
-                                fill="#141414"
-                              />
-                            </svg>
-                          ) : (
-                            <svg
-                              alt="Icône d'ajout aux articles enregistrés"
-                              width="30"
-                              height="40"
-                              viewBox="0 0 30 40"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M0 5C0 2.23858 2.23858 0 5 0H25C27.7614 0 30 2.23858 30 5V38.75C30 39.211 29.7463 39.6346 29.3398 39.8521C28.9334 40.0696 28.4402 40.0458 28.0566 39.7901L15 32.7523L1.94338 39.7901C1.5598 40.0458 1.06662 40.0696 0.660178 39.8521C0.253731 39.6346 0 39.211 0 38.75V5ZM5 2.5C3.61929 2.5 2.5 3.61929 2.5 5V36.4144L14.3066 30.2099C14.7265 29.93 15.2735 29.93 15.6934 30.2099L27.5 36.4144V5C27.5 3.61929 26.3807 2.5 25 2.5H5Z"
-                                fill="#141414"
-                              />
-                            </svg>
-                          )}
-                        </button>
-                      </form>
-                      <div className="articleMainInfo">
-                      <span className="articleCategory">{article.category}</span>
-                        <h3>{article.title}
-                        <span style={{ color: "var(--themeAccent)" }}>.</span></h3>
-                      <div className="intro" dangerouslySetInnerHTML={createMarkup(article.intro)}/>
-                      <div className="articleMainData">
-                        <p>{formatDate(article.publishDate)}</p> •{" "}
-                        <Link href={`/profile/${article.author}`}>
-                          {author}
-                        </Link>
-                      </div>
-                      <Link className="simpler" href={`/${article._id}`}>
-                        lire l&apos;article.
-                      </Link>
-                      </div>
-                      
-                    </div>
-                  ))
-                ) : (
-                  <p>Aucune recommandation pour l&apos;instant.</p>
-                )}
-                </div>
-                
               </div>
             </div>
           </div>

@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function ViewKard() {
   return (
     <div>
-      <h1>Admin Thinking Corner</h1>
+      <h1>Admin Agora</h1>
       <div>
         <Link
           href={`/create`}
