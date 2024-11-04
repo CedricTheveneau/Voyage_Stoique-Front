@@ -959,7 +959,7 @@ export default function ViewArticle({ params }) {
                   |{" "}
                   <Link
                     id="InstagramSocials"
-                    href="https://discord.gg/URGXAVbPYj"
+                    href="https://www.instagram.com/voyage_stoique/profilecard/?igsh=MWV4bGNueWF1enczcQ=="
                     title="Follow our Instagram"
                   >
                     <svg
