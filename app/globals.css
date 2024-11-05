@@ -3924,6 +3924,8 @@ body {
                 width: 50px !important;
                 height: 25px;
                 position: relative;
+                border: none !important;
+                padding: 0 !important;
               }
 
               >input[type="checkbox"]::before {
@@ -3931,6 +3933,8 @@ body {
                 height: 100%;
                 width: 100%;
                 position: absolute;
+                top: 0;
+                left: 0;
                 background-color: #f9f9f9;
                 border-radius: 100px;
                 transition: background-color 250ms ease-in-out;
@@ -4171,14 +4175,16 @@ body {
               margin-top: 5px;
             }
 
-            >.intro {
+            >.intro, .intro.post {
               display: -webkit-box;
               -webkit-box-orient: vertical;
               overflow: hidden;
               -webkit-line-clamp: 3;
 
-              >p {
+              >* {
                 font-weight: calc(var(--h3Weight)* 0.809);
+                font-size: var(--textSize);
+                color: var(--themeDark50);
               }
             }
 

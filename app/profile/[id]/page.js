@@ -800,10 +800,6 @@ export default function Profile({ params }) {
     }
   }, [user, id, userToken]);
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
   if (!user) {
     return <div>Loading...</div>; // Si "user" est null, on affiche un message de chargement
   }
