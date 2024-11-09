@@ -3680,6 +3680,9 @@ body {
           width: 50px !important;
           height: 25px;
           position: relative;
+          border: none !important;
+          padding: 0 !important;
+          color: unset !important;
         }
 
         >input[type="checkbox"]::before {
@@ -3687,8 +3690,9 @@ body {
           height: 100%;
           width: 100%;
           position: absolute;
+          top: 0;
+          left: 0;
           background-color: #f9f9f9;
-          border: 1px solid #14141480;
           border-radius: 100px;
           transition: background-color 250ms ease-in-out;
         }
@@ -3926,6 +3930,7 @@ body {
                 position: relative;
                 border: none !important;
                 padding: 0 !important;
+                color: unset !important;
               }
 
               >input[type="checkbox"]::before {

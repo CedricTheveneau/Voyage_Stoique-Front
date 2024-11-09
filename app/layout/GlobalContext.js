@@ -66,6 +66,17 @@ export const GlobalProvider = ({ children }) => {
         setUserId(user._id);
         setUserRole(user.role);
         setUserUsername(user.username);
+        if (userRole === 'admin') {
+            fetch(
+              `${process.env.NEXT_PUBLIC_API_GATEWAY_URI}/docs`,
+              {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }
+            );
+        }
       } else {
         localStorage.removeItem("user");
         setIsAuthenticated(false);
