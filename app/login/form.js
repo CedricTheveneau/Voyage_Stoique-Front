@@ -3,6 +3,12 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useGlobalContext } from '../layout/GlobalContext';
 
+/**
+ * Composant de formulaire de connexion.
+ * Permet à un utilisateur de se connecter avec son email et son mot de passe.
+ * Gère l'état de l'authentification et la gestion des erreurs.
+ * @returns {JSX.Element} Le formulaire de connection.
+ */
 export function Form() {
 
  const [email, setEmail] = useState("");
@@ -11,6 +17,12 @@ export function Form() {
  const router = useRouter();
  const { setIsAuthenticated, setUserId, setUserRole, setIsSubscribed, setUserUsername, currentPath } = useGlobalContext();
 
+ /**
+   * Fonction de gestion de la soumission du formulaire.
+   * Effectue une requête de connexion à l'API et met à jour les informations d'utilisateur.
+   * 
+   * @param {Object} e - L'événement de soumission du formulaire.
+   */
  const handleSubmit = async (e) => {
   e.preventDefault();
   setErrorMessage(""); // Réinitialiser le message d'erreur
@@ -58,11 +70,23 @@ export function Form() {
   }
 };
 
+/**
+   * Fonction de gestion de la modification de l'email.
+   * Met à jour l'état de l'email et réinitialise le message d'erreur.
+   * 
+   * @param {Object} e - L'événement de changement de valeur de l'input email.
+   */
 const handleChangeEmail = (e) => {
 setEmail(e.target.value);
 setErrorMessage("");
 };
 
+/**
+   * Fonction de gestion de la modification du mot de passe.
+   * Met à jour l'état du mot de passe et réinitialise le message d'erreur.
+   * 
+   * @param {Object} e - L'événement de changement de valeur de l'input mot de passe.
+   */
 const handleChangePassword = (e) => {
 setPassword(e.target.value);
 setErrorMessage("");

@@ -1,0 +1,22 @@
+{
+ "name": "Voyage Stoïque",
+ "short_name": "Voyage Stoïque",
+ "description": "Plateforme mi-blog mi-réseau social dédiée à la philosophie",
+ "start_url": "/",
+ "display": "standalone",
+  "orientation": "portrait",
+ "background_color": "#141414",
+ "theme_color": "#B0ABED",
+ "icons": [
+   {
+     "src": "/icons/icon-192x192.png",
+     "sizes": "192x192",
+     "type": "image/png"
+   },
+   {
+     "src": "/icons/icon-512x512.png",
+     "sizes": "512x512",
+     "type": "image/png"
+   }
+ ]
+}

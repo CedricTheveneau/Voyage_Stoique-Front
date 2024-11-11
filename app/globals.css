@@ -3679,6 +3679,7 @@ body {
         >input[type="checkbox"] {
           width: 50px !important;
           height: 25px;
+          border-radius: 100px;
           position: relative;
           border: none !important;
           padding: 0 !important;
@@ -3693,6 +3694,7 @@ body {
           top: 0;
           left: 0;
           background-color: #f9f9f9;
+          border: 1px solid #141414;
           border-radius: 100px;
           transition: background-color 250ms ease-in-out;
         }
@@ -3719,6 +3721,9 @@ body {
           right: 5%;
           left: auto;
           background-color: #f9f9f9;
+        }
+        >ul {
+          list-style: none;
         }
       }
 
@@ -3927,6 +3932,7 @@ body {
               >input[type="checkbox"] {
                 width: 50px !important;
                 height: 25px;
+                border-radius: 100px;
                 position: relative;
                 border: none !important;
                 padding: 0 !important;
@@ -4039,8 +4045,12 @@ body {
                 color: var(--themeAccent);
               }
 
-              >button.simpler.danger:hover {
+              >button.simpler.danger:hover, button.simpler.danger.alt:hover {
                 color: var(--themeLight);
+              }
+              >button.simpler.danger.alt {
+                color: var(--themeDanger);
+                margin-top: 20px;
               }
             }
           }
