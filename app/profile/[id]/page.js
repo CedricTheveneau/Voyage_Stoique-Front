@@ -3,8 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useGlobalContext } from "../../layout/GlobalContext.js";
+import { useRouter } from "next/navigation";
 
 export default function Profile({ params }) {
+  const router = useRouter();
   const {
     userToken,
     userId,
@@ -16,7 +18,7 @@ export default function Profile({ params }) {
     setUserUsername,
     isSubscribed,
     setIsSubscribed,
-    isAuthenticated,
+    isAuthenticated, setIsAuthenticated, setUserRole
   } = useGlobalContext();
   const { id } = params;
   const [user, setUser] = useState(null);
@@ -34,6 +36,7 @@ export default function Profile({ params }) {
   const [loadMore5, setLoadMore5] = useState(false);
   const [loadMore6, setLoadMore6] = useState(false);
   const [deleting, setDeleting] = useState(null);
+  const [deletingAccount, setDeletingAccount] = useState(null);
   const [loading, setLoading] = useState("");
   const [updating, setUpdating] = useState(false);
   const [error, setError] = useState(null);
@@ -422,7 +425,6 @@ export default function Profile({ params }) {
     } catch (error) {
       setError(error.message);
     }
-
     try {
       const response = await fetch(
         `${apiGateway}/comments/by-ids?ids=${articleComments}`,
@@ -441,7 +443,6 @@ export default function Profile({ params }) {
     } catch (error) {
       setError(error.message);
     }
-
     try {
       const updateResponse = await fetch(
         `${apiGateway}/auth/removeArticleByIds?ids=${userIds}`,
@@ -526,8 +527,7 @@ export default function Profile({ params }) {
     } catch (error) {
       setError(error.message);
     }
-
-    try {
+          try {
       const response = await fetch(
         `${apiGateway}/comments/by-ids?ids=${articleComments}`,
         {
@@ -545,8 +545,7 @@ export default function Profile({ params }) {
     } catch (error) {
       setError(error.message);
     }
-
-    try {
+          try {
       const updateResponse = await fetch(
         `${apiGateway}/auth/removePostByIds?ids=${userIds}`,
         {
@@ -573,6 +572,71 @@ export default function Profile({ params }) {
     } finally {
       setDeleting(null);
       setLoading(false);
+    }
+
+  };
+
+  const handleUserDeletion = async (event) => {
+    event.preventDefault(); // Empêche le rechargement de la page
+    setLoading(true);
+    try {
+      const isUserAdmin = user.role === "admin";
+      const articles = isUserAdmin ? userPublications : [];
+      const posts = isUserAdmin ? userPublicationsTwo : userPublications;
+      
+      const deleteItems = async (items, deletionFunction) => {
+        for (let item of items) {
+          console.log(item);
+          
+          const event = {
+            preventDefault: () => {},
+            target: {
+              articleId: { value: item._id },
+              articleComments: { value: item.comments.join(",") },
+              articleCover: { value: item.cover || "" },
+              articleAudio: { value: item.audio || "" },
+              articleUpvotes: { value: item.upvotes.join(",") },
+              articleSaved: { value: item.savedNumber.join(",") },
+              articleReads: { value: item.reads.join(",") },
+              userIds: [
+                ...new Set([
+                  ...(item.upvotes || []).join(","),
+                  ...(item.saved || []).join(","),
+                  ...(item.reads || []).join(","),
+                ]),
+              ].join(",").replace(/(^,|,$)/g, ""),
+            },
+          };
+          await deletionFunction(event); // Attend la suppression de chaque élément
+        }
+      };
+  
+      // Suppression des articles
+      await deleteItems(articles, handleArticleDeletion);
+      // Suppression des posts
+      await deleteItems(posts, handlePostDeletion);
+      
+      // Suppression de l'utilisateur
+      const response = await fetch(`${apiGateway}/auth/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userToken}`,
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+    } catch (error) {
+      setError("Erreur lors de la suppression des publications ou de l'utilisateur : " + error.message);
+    } finally {
+      setLoading(false);
+      localStorage.removeItem("user");
+      setIsAuthenticated(false);
+      setUserRole(null);
+      router.push("/");
     }
   };
 
@@ -893,7 +957,42 @@ export default function Profile({ params }) {
                     className="simpler"
                     onClick={() => setUpdating(!updating)}
                   >
-                    Annuler
+                    Annuler.
+                  </button>
+                </div>
+                <div className="choices">
+                <button
+                    type="button"
+                    className="simpler danger alt"
+                    onClick={() => {
+                      setUpdating(!updating);
+                      setDeletingAccount(!deletingAccount);
+                    }}
+                  >
+                    Supprimer votre compte
+                  </button>
+                </div>
+              </form>
+            )}
+            {deletingAccount && (
+              <form onSubmit={handleUserDeletion} className="popup">
+                <h3>Supprimez votre profil</h3>
+                <label>
+                            Vous vous apprêtez à supprimer définitivement votre profil &quot;
+                            <b>{userUsername}</b>&quot;, êtes-vous sûr de vouloir
+                            poursuivre ?<br />
+                            <b>Cette action est irréversible.</b>
+                          </label>
+                <div className="choices">
+                  <button type="submit" className="simpler danger alt">
+                    Supprimer définitivement mon compte.
+                  </button>
+                  <button
+                    type="button"
+                    className="simpler"
+                    onClick={() => setDeletingAccount(!deletingAccount)}
+                  >
+                    Annuler.
                   </button>
                 </div>
               </form>
@@ -1382,7 +1481,7 @@ export default function Profile({ params }) {
                               className="simpler"
                               onClick={() => setDeleting(null)}
                             >
-                              Annuler
+                              Annuler.
                             </button>
                           </div>
                         </form>
@@ -1586,7 +1685,7 @@ export default function Profile({ params }) {
                               className="simpler"
                               onClick={() => setDeleting(null)}
                             >
-                              Annuler
+                              Annuler.
                             </button>
                           </div>
                         </form>

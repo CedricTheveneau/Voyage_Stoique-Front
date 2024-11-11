@@ -4,6 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useGlobalContext } from "../layout/GlobalContext";
 
+/**
+ * Page de recherche des articles et posts, affichant les résultats en fonction de la requête.
+ * Permet également de sauvegarder les articles ou posts dans les favoris de l'utilisateur.
+ * 
+ * @returns {JSX.Element} Le composant de la page de recherche
+ */
 export default function SearchPage() {
   const { query, apiGateway, userToken, userId, createMarkup, formatDate} = useGlobalContext();
   const [results, setResults] = useState([]);
@@ -11,6 +17,12 @@ export default function SearchPage() {
   const [loadMore1, setLoadMore1] = useState(false);
   const [loadMore2, setLoadMore2] = useState(false);
 
+  /**
+   * Récupère les articles et posts correspondant à la requête de recherche.
+   * Met à jour les états des résultats pour les articles et les posts.
+   * 
+   * @returns {void}
+   */
   useEffect(() => {
     const fetchArticles = async () => {
       if (query) {
@@ -58,6 +70,14 @@ export default function SearchPage() {
     fetchArticles();
   }, [query]);
 
+  /**
+   * Gère la sauvegarde d'un article dans les favoris de l'utilisateur.
+   * Met à jour le nombre de sauvegardes pour cet article dans l'état.
+   * 
+   * @param {React.FormEvent} event L'événement de soumission du formulaire
+   * @param {string} articleId L'identifiant de l'article à sauvegarder
+   * @returns {void}
+   */
   const handleSave = async (event, articleId) => {
     event.preventDefault();
 
@@ -111,6 +131,14 @@ export default function SearchPage() {
     }
   };
 
+  /**
+   * Gère la sauvegarde d'un post dans les favoris de l'utilisateur.
+   * Met à jour le nombre de sauvegardes pour ce post dans l'état.
+   * 
+   * @param {React.FormEvent} event L'événement de soumission du formulaire
+   * @param {string} articleId L'identifiant du post à sauvegarder
+   * @returns {void}
+   */
   const handleSavePost = async (event, articleId) => {
     event.preventDefault();
 
@@ -266,7 +294,7 @@ export default function SearchPage() {
   : `${resultsPosts.length} posts trouvés`}
           <span style={{ color: "var(--themeAccent)" }}>.</span>
         </h2>
-        <div className={`articleList ${loadMore1 ? "active" : ""}`}>
+        <div className={`articleList ${loadMore2 ? "active" : ""}`}>
           {resultsPosts.length > 0 ? (
             resultsPosts.map((article) => (
               <div key={article._id} className="articleCard">
