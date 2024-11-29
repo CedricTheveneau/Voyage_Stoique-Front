@@ -482,7 +482,7 @@ export default function Profile({ params }) {
     const articleId = e.target.articleId.value;
     const articleComments = e.target.articleComments.value;
     let articleCover;
-    {e.target.articleCover.value ? articleCover = e.target.articleCover.value : articleCover = null}
+    {e.target.articleCover && e.target.articleCover.value ? articleCover = e.target.articleCover.value : articleCover = null}
     const articleUpvotes = e.target.articleUpvotes.value;
     const articleSaved = e.target.articleSaved.value;
     const articleReads = e.target.articleReads.value;
@@ -494,7 +494,9 @@ export default function Profile({ params }) {
       ]),
     ].join(",");
 
-    await deletePostFileFromCloudinary(articleCover, "image");
+    if (articleCover !== null) {
+    await deletePostFileFromCloudinary(articleCover, "image"); 
+    }
 
     try {
       const response = await fetch(`${apiGateway}/posts/${articleId}`, {
@@ -1287,12 +1289,13 @@ export default function Profile({ params }) {
           {userPublications.length > 0 ? (
             userPublications.map((article) => (
               <div key={article._id} className="articleCard">
+                {article.cover && (
                 <Image
                   src={article.cover}
                   width="300"
                   height="150"
                   alt="The article's cover"
-                />
+                />)}
                 {isAuthenticated && (
                   <form
                     className="saveArticle"

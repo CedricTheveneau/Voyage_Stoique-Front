@@ -39,7 +39,7 @@
   --h3Size: 22.65px;
   --h3Weight: 600;
   --textSize: 16px;
-  --textWeight: 200;
+  --textWeight: 400;
   --textLineHeight: 25px;
   --oswald: "Oswald";
   --skew: 0deg;
@@ -317,8 +317,8 @@ body {
           }
 
           >p {
-            font-weight: 100;
-            font-size: calc(var(--textSize) - 2px);
+            font-weight: 400;
+            font-size: var(--textSize);
             color: var(--themeDark50);
 
             >a {
@@ -627,6 +627,12 @@ body {
 
   >main {
     overflow: hidden;
+    & ul {
+      padding-left: 30px;
+      >li::marker {
+        color: var(--themeAccent);
+      }
+    }
 
     >.hero {
       position: relative;
@@ -806,7 +812,7 @@ body {
           >.articleIntro {
             >p {
               font-size: var(--h3Size);
-              font-weight: 400;
+              font-weight: 300;
               line-height: calc(var(--h2Size)* 0.809);
             }
           }
@@ -3643,7 +3649,8 @@ body {
 
   >main.signup,
   main.login,
-  main.articleCreation {
+  main.articleCreation,
+  main.confirmPopUp {
     height: 100dvh;
     width: 100dvw;
     padding: 15dvw;
@@ -5282,7 +5289,7 @@ body {
           }
 
           >p {
-            font-weight: 100;
+            font-weight: 400;
             font-size: calc(var(--textSize) - 2px);
             color: var(--themeDark50);
           }
@@ -6020,6 +6027,40 @@ button:hover>svg.ctaArrow.pulse {
 /**!---------- Media queries ----------!**/
 @media screen and (max-width: 1500px) {
 
+  body {
+    > main {
+        > .hero.article {
+            > .twinCol {
+                > .articleInfo {
+                    >h2 {
+                        font-size: var(--h1Size);
+                        line-height: var(--h1Size);
+                    }
+                }
+                > .articleContentInfo {
+                  > .heroSummary {
+                      >h2 {
+                          font-size: var(--h1Size);
+                          line-height: var(--h1Size);
+                      }
+                      > ul {
+                        > li {
+                            >a.h2 {
+                                font-weight: 400;
+                            }
+                            >a.h3 {
+                              font-size: var(--textSize);
+                              font-weight: var(--textWeight);
+                          }
+                        }
+                    }
+                  }
+              }
+            }
+        }
+    }
+}
+
   .branding>span,
   .branding>p:not(p:nth-child(1)) {
     display: none;
@@ -6728,7 +6769,6 @@ button:hover>svg.ctaArrow.pulse {
 
       >.articleIntro {
         >p {
-          font-weight: 300 !important;
           line-height: var(--textLineHeight) !important;
         }
       }
