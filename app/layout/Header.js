@@ -81,6 +81,7 @@ export default function Header() {
   return (
     <header className="header">
       <nav>
+        <Link href="/" title="Revenez à l'accueil">
         <div className="logo">
           <Image
             className="logoLight"
@@ -108,6 +109,7 @@ export default function Header() {
             </p>
           </div>
         </div>
+        </Link>
         <div className={navbarToggle ? 'navbar active' : 'navbar'}>
           <ul className="links">
             <li>

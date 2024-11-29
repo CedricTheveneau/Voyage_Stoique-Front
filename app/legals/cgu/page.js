@@ -9,7 +9,7 @@ export default function Cgu() {
             <p>Veuillez noter que, à tout moment, vous pouvez envoyer une requête d&apos;information à propos de ces
                 informations ; en envoyant un email à cette adresse <Link href="mailto:dpo.voyagestoique@gmail.com" title="Envoyez un email pour demander des informations relatives au site">dpo.voyagestoique@gmail.com</Link>.</p>
         </div>
-        <div className="content">
+        <div className="content fit-mobile">
             <div className="gridBlocs">
                 <div className="info">
                     <h3>Traçabilité du contenu<span style={{"color": "var(--themeAccent)"}}>.</span></h3>
