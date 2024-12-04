@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
       <link rel="manifest" href="/manifest.json" />
           <link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png" />
           <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png" />
-          <meta name="theme-color" content="#B0ABED" />
+          <meta name="theme-color" content="#141414" />
 <link rel="apple-touch-startup-image" href="images/splash/640x1136.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/> 
 <link rel="apple-touch-startup-image" href="images/splash/750x1294.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/> 
 <link rel="apple-touch-startup-image" href="images/splash/1242x2148.png" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"/>

@@ -627,8 +627,10 @@ body {
 
   >main {
     overflow: hidden;
+
     & ul {
       padding-left: 30px;
+
       >li::marker {
         color: var(--themeAccent);
       }
@@ -3300,7 +3302,7 @@ body {
             margin-bottom: 20px;
             border-radius: 10px;
             overflow: hidden;
-          height: fit-content;
+            height: fit-content;
 
             >button {
               color: var(--themeDark);
@@ -3729,6 +3731,7 @@ body {
           left: auto;
           background-color: #f9f9f9;
         }
+
         >ul {
           list-style: none;
         }
@@ -4052,9 +4055,11 @@ body {
                 color: var(--themeAccent);
               }
 
-              >button.simpler.danger:hover, button.simpler.danger.alt:hover {
+              >button.simpler.danger:hover,
+              button.simpler.danger.alt:hover {
                 color: var(--themeLight);
               }
+
               >button.simpler.danger.alt {
                 color: var(--themeDanger);
                 margin-top: 20px;
@@ -4197,7 +4202,8 @@ body {
               margin-top: 5px;
             }
 
-            >.intro, .intro.post {
+            >.intro,
+            .intro.post {
               display: -webkit-box;
               -webkit-box-orient: vertical;
               overflow: hidden;
@@ -4902,42 +4908,84 @@ body {
         display: grid;
         gap: 20px;
 
-        >.orderingOptions {
-          position: relative;
-          width: fit-content;
-          margin-bottom: 20px;
-          border-radius: 10px;
-          overflow: hidden;
-          height: fit-content;
+        >.options {
+          display: flex;
+          gap: 20px;
+          flex-wrap: wrap;
 
-          >button {
-            color: var(--themeDark);
-            border: transparent;
-            background-color: transparent;
-            padding: 5px;
-            width: 60px;
+          >.ordering, .filters {
+            display: grid;
+            gap: 10px;
+            >.orderingOptions {
+              position: relative;
+              width: fit-content;
+              border-radius: 10px;
+              overflow: hidden;
+              height: fit-content;
+
+              >button {
+                color: var(--themeDark);
+                border: transparent;
+                background-color: transparent;
+                padding: 5px;
+                width: 60px;
+              }
+
+              >button.active {
+                color: var(--themeLight);
+              }
+            }
+
+            >.orderingOptions::after {
+              left: 0;
+              right: auto;
+              content: '';
+              width: 50%;
+              height: 100%;
+              background-color: var(--themeAccent);
+              position: absolute;
+              z-index: -1;
+              transition: left 250ms ease-in-out, right 250ms ease-in-out;
+            }
+
+            >.orderingOptions:has(button:nth-child(2).active)::after {
+              right: 0;
+              left: auto;
+            }
           }
 
-          >button.active {
-            color: var(--themeLight);
+          >.filters {
+            >.filteringOptions {
+              display: flex;
+              gap: 10px;
+              flex-wrap: wrap;
+
+              >label {
+                position: relative;
+                padding: 5px 10px;
+                background-color: var(--themeAccent10);
+                color: var(--themeLight);
+                border-radius: 10px;
+                cursor: pointer;
+                transition: background-color 250ms ease-in-out;
+
+                >input {
+                  cursor: pointer;
+                  position: absolute;
+                  width: 100%;
+                  height: 100%;
+                  top: 0;
+                  left: 0;
+                  opacity: 0;
+                }
+              }
+
+              >label:has(:checked),
+              label:hover {
+                background-color: var(--themeAccent);
+              }
+            }
           }
-        }
-
-        >.orderingOptions::after {
-          left: 0;
-          right: auto;
-          content: '';
-          width: 50%;
-          height: 100%;
-          background-color: var(--themeAccent);
-          position: absolute;
-          z-index: -1;
-          transition: left 250ms ease-in-out, right 250ms ease-in-out;
-        }
-
-        >.orderingOptions:has(button:nth-child(2).active)::after {
-          right: 0;
-          left: auto;
         }
 
         >.articleCardsContainer {
@@ -6028,38 +6076,41 @@ button:hover>svg.ctaArrow.pulse {
 @media screen and (max-width: 1500px) {
 
   body {
-    > main {
-        > .hero.article {
-            > .twinCol {
-                > .articleInfo {
-                    >h2 {
-                        font-size: var(--h1Size);
-                        line-height: var(--h1Size);
-                    }
-                }
-                > .articleContentInfo {
-                  > .heroSummary {
-                      >h2 {
-                          font-size: var(--h1Size);
-                          line-height: var(--h1Size);
-                      }
-                      > ul {
-                        > li {
-                            >a.h2 {
-                                font-weight: 400;
-                            }
-                            >a.h3 {
-                              font-size: var(--textSize);
-                              font-weight: var(--textWeight);
-                          }
-                        }
-                    }
+    >main {
+      >.hero.article {
+        >.twinCol {
+          >.articleInfo {
+            >h2 {
+              font-size: var(--h1Size);
+              line-height: var(--h1Size);
+            }
+          }
+
+          >.articleContentInfo {
+            >.heroSummary {
+              >h2 {
+                font-size: var(--h1Size);
+                line-height: var(--h1Size);
+              }
+
+              >ul {
+                >li {
+                  >a.h2 {
+                    font-weight: 400;
                   }
+
+                  >a.h3 {
+                    font-size: var(--textSize);
+                    font-weight: var(--textWeight);
+                  }
+                }
               }
             }
+          }
         }
+      }
     }
-}
+  }
 
   .branding>span,
   .branding>p:not(p:nth-child(1)) {
