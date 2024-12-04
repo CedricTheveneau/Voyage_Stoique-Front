@@ -32,7 +32,10 @@ export default function Agora() {
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState([]);
   const [users, setUsers] = useState([]);
-  const [sortedPosts, setSortedPosts] = useState([]);
+  const [postFilters, setPostFilters] = useState([]);
+  const [selectedPostFilters, setSelectedPostFilters] = useState([]);
+  const [filteredPosts, setFilteredPosts] = useState([]);
+  const [postFiltering, setPostFiltering] = useState("large");
 
   const router = useRouter();
 
@@ -185,6 +188,14 @@ export default function Agora() {
     }
   };
 
+  const handleFilterChange = (e, filter) => {
+    if (e.target.checked) {
+      setSelectedPostFilters((prev) => [...prev, filter]);
+    } else {
+      setSelectedPostFilters((prev) => prev.filter((f) => f !== filter));
+    }
+  };
+
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -230,20 +241,54 @@ export default function Agora() {
   }, []);
 
   useEffect(() => {
-    if (postOrdering === "popularity") {
-      setSortedPosts(
-        [...posts].sort((a, b) => {
-          const scoreA =
-            a.upvotes.length * 100 + a.comments.length * 10 + a.reads.length;
-          const scoreB =
-            b.upvotes.length * 100 + b.comments.length * 10 + b.reads.length;
-          return scoreB - scoreA;
-        })
-      );
-    } else if (postOrdering === "date") {
-      setSortedPosts([...posts].reverse());
+    if (posts && posts.length > 0) {
+      const categories = new Set(posts.map((post) => post.category));
+      const keywords = new Set(posts.flatMap((post) => post.keywords));
+
+      const filters = [...categories, ...keywords];
+      setPostFilters(filters);
     }
-  }, [posts, postOrdering]);
+  }, [posts]);
+
+  useEffect(() => {
+    if (!posts || posts.length === 0) return;
+
+    let processedPosts = [...posts];
+
+    if (selectedPostFilters.length > 0) {
+      if (postFiltering === "restreint") {
+        processedPosts = processedPosts.filter((post) =>
+          selectedPostFilters.every(
+            (filter) =>
+              post.category === filter ||
+              (post.keywords && post.keywords.includes(filter))
+          )
+        );
+      } else {
+        processedPosts = processedPosts.filter((post) =>
+          selectedPostFilters.some(
+            (filter) =>
+              post.category === filter ||
+              (post.keywords && post.keywords.includes(filter))
+          )
+        );
+      }
+    }
+
+    if (postOrdering === "popularity") {
+      processedPosts.sort((a, b) => {
+        const scoreA =
+          a.upvotes.length * 100 + a.comments.length * 10 + a.reads.length;
+        const scoreB =
+          b.upvotes.length * 100 + b.comments.length * 10 + b.reads.length;
+        return scoreB - scoreA;
+      });
+    } else if (postOrdering === "date") {
+      processedPosts = processedPosts.reverse();
+    }
+
+    setFilteredPosts(processedPosts);
+  }, [posts, postOrdering, selectedPostFilters, postFiltering]);
 
   return (
     <main className="agora">
@@ -251,26 +296,72 @@ export default function Agora() {
         <div className="postsList">
           {posts && posts.length > 0 && (
             <>
-              <p>Préférence de tri :</p>
-              <div className="orderingOptions">
-                <button
-                  className={postOrdering === "date" && "active"}
-                  onClick={() => setPostOrdering("date")}
-                >
-                  Date
-                </button>
-                <button
-                  className={postOrdering === "popularity" && "active"}
-                  onClick={() => setPostOrdering("popularity")}
-                >
-                  Popularité
-                </button>
+              <p>
+                {filteredPosts.length} post{filteredPosts.length > 1 && "s"}{" "}
+                affiché{filteredPosts.length > 1 && "s"}
+              </p>
+              <div className="options">
+                <div className="ordering">
+                  <p>Préférence de tri :</p>
+                  <div className="orderingOptions">
+                    <button
+                      className={postOrdering === "date" && "active"}
+                      onClick={() => setPostOrdering("date")}
+                    >
+                      Date
+                    </button>
+                    <button
+                      className={postOrdering === "popularity" && "active"}
+                      onClick={() => setPostOrdering("popularity")}
+                    >
+                      Popularité
+                    </button>
+                  </div>
+                </div>
+                {postFilters && (
+                  <>
+                    <div className="ordering">
+                      <p>Préférence de filtrage :</p>
+                      <div className="orderingOptions">
+                        <button
+                          className={postFiltering === "large" && "active"}
+                          onClick={() => setPostFiltering("large")}
+                        >
+                          Large
+                        </button>
+                        <button
+                          className={postFiltering === "restreint" && "active"}
+                          onClick={() => setPostFiltering("restreint")}
+                        >
+                          Restreint
+                        </button>
+                      </div>
+                    </div>
+                    <div className="filters">
+                      <p>Filtrer le contenu :</p>
+                      {postFilters.length > 0 && (
+                        <div className="filteringOptions">
+                          {postFilters.map((filter) => (
+                            <label key={filter}>
+                              <input
+                                type="checkbox"
+                                value={filter}
+                                onChange={(e) => handleFilterChange(e, filter)}
+                              />
+                              {filter}
+                            </label>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </>
+                )}
               </div>
             </>
           )}
           <div className="articleCardsContainer">
-            {sortedPosts.length > 0 ? (
-              sortedPosts.map((post) => (
+            {filteredPosts.length > 0 ? (
+              filteredPosts.map((post) => (
                 <div key={post._id} className="articleCard">
                   {post.cover && (
                     <Image
@@ -356,7 +447,10 @@ export default function Agora() {
         <div className="articleAside">
           {userToken && isAuthenticated && userRole !== "guest" && (
             <>
-              <button className={posting && 'active'} onClick={() => setPosting(!posting)}>
+              <button
+                className={posting && "active"}
+                onClick={() => setPosting(!posting)}
+              >
                 +
               </button>
 
@@ -539,20 +633,22 @@ export default function Agora() {
             )}
           </div>
           <div className="stats">
-          <h3>
+            <h3>
               statistiques
               <span style={{ color: "var(--themeAccent)" }}>.</span>
             </h3>
             <div className="statsContainer">
-                <div className="stat">
-                  <p className="statNum">{posts.length}</p>
-                  <p className="statContext">post{posts.length > 1 ? 's' : ''}</p>
-                </div>
-                <div className="stat">
-                  <p className="statNum">{users.length}</p>
-                  <p className="statContext">membre{users.length > 1 ? 's' : ''}</p>
-                </div>
+              <div className="stat">
+                <p className="statNum">{posts.length}</p>
+                <p className="statContext">post{posts.length > 1 ? "s" : ""}</p>
               </div>
+              <div className="stat">
+                <p className="statNum">{users.length}</p>
+                <p className="statContext">
+                  membre{users.length > 1 ? "s" : ""}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
