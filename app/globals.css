@@ -916,12 +916,15 @@ body {
           gap: 90px;
 
           >.heroSummary {
+            display: grid;
+            gap: 10px;
             >h2 {
               font-size: var(--heroSize);
             }
 
             >ul {
               list-style: none;
+              padding-left: 0;
 
               >li {
 
@@ -2757,6 +2760,7 @@ body {
 
             >ul {
               list-style: none;
+              padding-left: 0;
 
               >li {
                 text-align: end;
@@ -6387,9 +6391,13 @@ button:hover>svg.ctaArrow.pulse {
   main.agora {
     >.content.fit.articleCore {
       >.postsList {
-        >.orderingOptions {
-          >button {
-            width: 90px !important;
+        >.options {
+          >.ordering {
+            >.orderingOptions {
+              >button {
+                width: 90px !important;
+              }
+            }
           }
         }
       }
