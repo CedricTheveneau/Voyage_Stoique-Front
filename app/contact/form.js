@@ -5,7 +5,7 @@ import { useGlobalContext } from "../layout/GlobalContext";
 
 export function Form() {
 
-  const {contactSubjects} = useGlobalContext();
+  const {contactSubjects, currentPath} = useGlobalContext();
 
  const [name, setName] = useState("");
 
@@ -64,8 +64,8 @@ export function Form() {
    e.preventDefault();
    sendEmail();
    setTimeout(() => {
-    router.push('/login')
-  }, 15000)
+    router.push(currentPath)
+  }, 10000)
  };
 
  return (

@@ -86,7 +86,7 @@ export const GlobalProvider = ({ children }) => {
   }, [isAuthenticated]);
 
   useEffect(() => {
-    if (!pathname.includes('/login') && !pathname.includes('/signup') && !pathname.includes('/emailConfirmation')) {
+    if (!pathname.includes('/login') && !pathname.includes('/signup') && !pathname.includes('/emailConfirmation') && !pathname.includes('/contact')) {
       setCurrentPath(pathname);
     }
     {!pathname.includes('/search') && setNavbarToggle(false);}

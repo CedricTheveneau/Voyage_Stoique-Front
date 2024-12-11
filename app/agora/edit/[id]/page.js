@@ -200,6 +200,11 @@ export default function EditArticle({ params }) {
                 {cat.charAt(0).toUpperCase() + cat.slice(1)}
               </option>
             ))}
+            {userRole === "admin" && (
+                              <option value="mise à jour / nouvelle fonctionnalité">
+                                Mise à jour / nouvelle fonctionnalité
+                              </option>
+                            )}
           </select>
         </div>
         <button type="submit">Sauvegarder <svg alt="Arrow" className="ctaArrow" width="79" height="30" viewBox="0 0 79 37" fill="none" xmlns="http://www.w3.org/2000/svg">
