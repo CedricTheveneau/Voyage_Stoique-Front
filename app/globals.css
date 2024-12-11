@@ -3849,6 +3849,30 @@ body {
         transform: translateY(30px) scaleX(1) skew(calc(var(--skew) * -1));
         transform-origin: left center;
       }
+
+      >.icons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+    
+        >a {
+          font-size: 18px;
+          font-weight: bold;
+          color: var(--themeAccent);
+          position: relative;
+
+        }
+    
+        & path {
+          fill: var(--themeDark);
+          transition: fill 250ms ease-in-out;
+        }
+    
+        & svg:hover path {
+          fill: var(--themeAccent);
+        }
+      }
     }
 
     >.signupPrompt::before {
@@ -4967,7 +4991,7 @@ body {
               >label {
                 position: relative;
                 padding: 5px 10px;
-                background-color: var(--themeAccent10);
+                background-color: var(--themeAccent50);
                 color: var(--themeLight);
                 border-radius: 10px;
                 cursor: pointer;
@@ -4986,6 +5010,21 @@ body {
 
               >label:has(:checked),
               label:hover {
+                background-color: var(--themeAccent);
+              }
+
+              >button.moreFilters {
+                border: transparent;
+                padding: 5px 10px;
+                background-color: var(--themeAccent50);
+                color: var(--themeLight);
+                border-radius: 10px;
+                cursor: pointer;
+                transition: background-color 250ms ease-in-out;
+              }
+
+              >button.moreFilters.active,
+              button.moreFilters:hover {
                 background-color: var(--themeAccent);
               }
             }

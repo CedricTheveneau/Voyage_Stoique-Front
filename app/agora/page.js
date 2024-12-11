@@ -36,6 +36,7 @@ export default function Agora() {
   const [selectedPostFilters, setSelectedPostFilters] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [postFiltering, setPostFiltering] = useState("large");
+  const [moreFilters, setMoreFilters] = useState(0);
 
   const router = useRouter();
 
@@ -318,9 +319,9 @@ export default function Agora() {
                     </button>
                   </div>
                 </div>
-                {postFilters && (
+                {postFilters?.length > 0 && (
                   <>
-                    <div className="ordering">
+                  <div className="ordering">
                       <p>Préférence de filtrage :</p>
                       <div className="orderingOptions">
                         <button
@@ -339,9 +340,10 @@ export default function Agora() {
                     </div>
                     <div className="filters">
                       <p>Filtrer le contenu :</p>
-                      {postFilters.length > 0 && (
-                        <div className="filteringOptions">
-                          {postFilters.map((filter) => (
+                      <div className="filteringOptions">
+                        {postFilters
+                          .slice(0, moreFilters === 0 ? 6 : postFilters.length)
+                          .map((filter) => (
                             <label key={filter}>
                               <input
                                 type="checkbox"
@@ -351,8 +353,21 @@ export default function Agora() {
                               {filter}
                             </label>
                           ))}
-                        </div>
-                      )}
+                        <button
+                          className={
+                            moreFilters === 1
+                              ? "moreFilters active"
+                              : "moreFilters"
+                          }
+                          onClick={() =>
+                            setMoreFilters(moreFilters === 0 ? 1 : 0)
+                          }
+                        >
+                          {moreFilters === 0
+                            ? "Plus de filtres"
+                            : "Moins de filtres"}
+                        </button>
+                      </div>
                     </div>
                   </>
                 )}
@@ -516,10 +531,15 @@ export default function Agora() {
                         required
                       >
                         {categories.map((cat, index) => (
-                          <option key={index} value={cat}>
-                            {cat.charAt(0).toUpperCase() + cat.slice(1)}
-                          </option>
+                            <option key={index} value={cat}>
+                              {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                            </option>
                         ))}
+                        {userRole === "admin" && (
+                              <option value="mise à jour / nouvelle fonctionnalité">
+                                Mise à jour / nouvelle fonctionnalité
+                              </option>
+                            )}
                       </select>
                     </div>
                     <button className="simpler" type="submit">

@@ -7,7 +7,7 @@ export default function Cgu() {
             <h2 className="centered">Conditions Générales d&apos;Utilisation<span style={{ color: "var(--themeAccent)" }}>.</span></h2><br/>
             <p>Ici, vous pourrez retrouver tout ce que vous voudriez savoir concernant l&apos;utilisation du site, plus particulièrement de son contenu ainsi que la responsabilité de la plateforme quant au non-respect de ces conditions.</p>
             <p>Veuillez noter que, à tout moment, vous pouvez envoyer une requête d&apos;information à propos de ces
-                informations ; en envoyant un email à cette adresse <Link href="mailto:dpo.voyagestoique@gmail.com" title="Envoyez un email pour demander des informations relatives au site">dpo.voyagestoique@gmail.com</Link>.</p>
+                informations ; en envoyant un email à cette adresse <Link href="mailto:dpo.voyagestoique@gmail.com" title="Envoyez un email pour demander des informations relatives au site">dpo.voyagestoique@gmail.com</Link>. Vous pouvez également nous contacter directement depuis notre <Link href="/contact" title="Contactez l'équipe Voyage Stoïque via le formulaire de contact">formulaire de contact</Link>.</p>
         </div>
         <div className="content fit-mobile">
             <div className="gridBlocs">
