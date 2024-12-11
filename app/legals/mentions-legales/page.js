@@ -9,7 +9,7 @@ export default function MentionsLegales() {
                 conception, du propriétaire ainsi que des informations concernant les lois qui s&apos;appliquent sur ce
                 dernier.</p>
             <p>Veuillez noter que, à tout moment, vous pouvez envoyer une requête d&apos;information à propos de ces
-                informations ; en envoyant un email à cette adresse <Link href="mailto:dpo.voyagestoique@gmail.com" title="Envoyez un email pour demander des informations relatives au site">dpo.voyagestoique@gmail.com</Link>.</p>
+                informations ; en envoyant un email à cette adresse <Link href="mailto:dpo.voyagestoique@gmail.com" title="Envoyez un email pour demander des informations relatives au site">dpo.voyagestoique@gmail.com</Link>. Vous pouvez également nous contacter directement depuis notre <Link href="/contact" title="Contactez l'équipe Voyage Stoïque via le formulaire de contact">formulaire de contact</Link>.</p>
         </div>
         <div className="content fit">
             <div className="gridBlocs">
@@ -18,7 +18,7 @@ export default function MentionsLegales() {
                     <p>En vertu de l&apos;article 6 de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l&apos;économie numérique, il est précisé aux utilisateurs du site internet <Link href="/" title="Se rendre sur le site">https://www.voyage-stoique.com</Link> l&apos;identité des différents intervenants dans le cadre de sa réalisation et de son suivi:</p>
                     <ul>
                       <li>Propriétaire du site : Theveneau Cédric</li>
-                      <li>Contact : <Link href="mailto:contact.voyagestoique@gmail.com" title="Contactez le propriétaire du site par email">contact.voyagestoique@gmail.com</Link> <Link href="tel:+33647024345" title="Contactez le propriétaire du site par téléphone">06 47 02 43 45</Link></li>
+                      <li>Contact : <Link href="mailto:contact.voyagestoique@gmail.com" title="Contactez le propriétaire du site par email">contact.voyagestoique@gmail.com</Link> &#40;<Link href="/contact" title="Contactez l'équipe Voyage Stoïque via le formulaire de contact">formulaire de contact</Link>&#41; <Link href="tel:+33647024345" title="Contactez le propriétaire du site par téléphone">06 47 02 43 45</Link></li>
                       <li>Adresse : 35 Parc de Gaillon 91630 Marolles-en-Hurepoix</li>
                       <li>Identification de l&apos;entreprise : Theveneau Cédric au capital social de 0€</li>
                       <li>SIREN : /</li>

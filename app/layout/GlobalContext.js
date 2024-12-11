@@ -24,6 +24,7 @@ export const GlobalProvider = ({ children }) => {
   const [commentOrdering, setCommentOrdering] = useState("date");
   const [postOrdering, setPostOrdering] = useState("date");
   const categories = ["méditation", "portrait", "présentation d’œuvre", "concept", "analyse"];
+  const contactSubjects = ["Demande d'informations", "Suggestion", "Demande de fonctionnalité", "Remontée de bug", "Demande d'aide"];
   const pathname = usePathname();
   const apiGateway = process.env.NEXT_PUBLIC_API_GATEWAY_URI;
 
@@ -121,7 +122,7 @@ export const GlobalProvider = ({ children }) => {
   }, [userId, userToken]);
 
   return (
-    <GlobalContext.Provider value={{createMarkup, formatDate, categories, userToken, isAuthenticated, isSubscribed, userId, userUsername, userRole, query, currentPath, apiGateway, commentOrdering, setCommentOrdering, setIsAuthenticated, setIsSubscribed, setUserId, setUserUsername, setUserRole, setQuery, setCurrentPath, navbarToggle, setNavbarToggle, postOrdering, setPostOrdering }}>
+    <GlobalContext.Provider value={{createMarkup, formatDate, categories, userToken, isAuthenticated, isSubscribed, userId, userUsername, userRole, query, currentPath, apiGateway, commentOrdering, setCommentOrdering, setIsAuthenticated, setIsSubscribed, setUserId, setUserUsername, setUserRole, setQuery, setCurrentPath, navbarToggle, setNavbarToggle, postOrdering, setPostOrdering, contactSubjects }}>
       {children}
     </GlobalContext.Provider>
   );
