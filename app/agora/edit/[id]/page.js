@@ -133,7 +133,7 @@ export default function EditArticle({ params }) {
         
         await deleteFileFromCloudinary(oldCoverUrl, 'image');
       }
-      router.push(`/agora/${data._id}`);
+      router.push(`/agora/${data.slug}`);
     } catch (error) {
       setError(error.message);
     } finally {

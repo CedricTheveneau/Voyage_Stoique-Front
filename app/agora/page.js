@@ -181,7 +181,7 @@ export default function Agora() {
       }
 
       const data = await response.json();
-      router.push(`/agora/${data._id}`);
+      router.push(`/agora/${data.slug}`);
     } catch (error) {
       setError(error.message);
     } finally {
@@ -430,7 +430,7 @@ export default function Agora() {
                     </form>
                   )}
 
-                  <Link title="Accédez à l'article" href={`/agora/${post._id}`}>
+                  <Link title="Accédez à l'article" href={`/agora/${post.slug}`}>
                     <div className="articleMainInfo">
                       <span className="articleCategory">{post.category}</span>
                       <h3>
@@ -443,11 +443,11 @@ export default function Agora() {
                       />
                       <div className="articleMainData">
                         <p>{formatDate(post.publishDate)}</p> •{" "}
-                        <Link href={`/profile/${post.author}`}>
+                        <Link href={`/profile/${post.authorUsername}`}>
                           {post.authorUsername}
                         </Link>
                       </div>
-                      <Link className="simpler" href={`/agora/${post._id}`}>
+                      <Link className="simpler" href={`/agora/${post.slug}`}>
                         lire le post.
                       </Link>
                     </div>

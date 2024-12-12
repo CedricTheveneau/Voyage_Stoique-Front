@@ -110,7 +110,7 @@ export default function CreateArticle() {
       }
 
       const data = await response.json();
-      router.push(`/${data._id}`);
+      router.push(`/${data.slug}`);
     } catch (error) {
       setError(error.message);
     } finally {

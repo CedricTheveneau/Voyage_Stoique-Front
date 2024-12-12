@@ -158,7 +158,7 @@ export default function EditArticle({ params }) {
         await deleteFileFromCloudinary(oldAudioUrl, 'video');
       }
 
-      router.push(`/${data._id}`);
+      router.push(`/${data.slug}`);
     } catch (error) {
       setError(error.message);
     } finally {
