@@ -286,14 +286,14 @@ export default function Home() {
                 <div className="articleMetadatas">
                   <div className="firstLine">
                     <p>{formatDate(article.publishDate)}</p> •{" "}
-                    <Link href={`/profile/${article.author}`}>{author}</Link> •{" "}
+                    <Link href={`/profile/${author}`}>{author}</Link> •{" "}
                     <p>
                       Lecture de {article.readingTime}{" "}
                       {article.readingTime <= 1 ? "minute" : "minutes"}
                     </p>
                   </div>
                   <div className="secondLine">
-                  <Link className="simpler" href={`/${article._id}`}>lire l&apos;article.</Link>
+                  <Link className="simpler" href={`/${article.slug}`}>lire l&apos;article.</Link>
                   </div>
                 </div>
               </div>
@@ -356,7 +356,7 @@ export default function Home() {
                         </button>
                       </form>}
                       
-                      <Link title="Accédez à l'article" href={`/${article._id}`}>
+                      <Link title="Accédez à l'article" href={`/${article.slug}`}>
                       <div className="articleMainInfo">
                       <span className="articleCategory">{article.category}</span>
                         <h3>{article.title}
@@ -364,11 +364,11 @@ export default function Home() {
                       <div className="intro" dangerouslySetInnerHTML={createMarkup(article.intro)}/>
                       <div className="articleMainData">
                         <p>{formatDate(article.publishDate)}</p> •{" "}
-                        <Link href={`/profile/${article.author}`}>
+                        <Link href={`/profile/${author}`}>
                           {author}
                         </Link>
                       </div>
-                      <Link className="simpler" href={`/${article._id}`}>
+                      <Link className="simpler" href={`/${article.slug}`}>
                         lire l&apos;article.
                       </Link>
                       </div>
@@ -436,7 +436,7 @@ export default function Home() {
                         </button>
                       </form>}
                       
-                      <Link title="Accédez à l'article" href={`/${article._id}`}>
+                      <Link title="Accédez à l'article" href={`/${article.slug}`}>
                       <div className="articleMainInfo">
                       <span className="articleCategory">{article.category}</span>
                         <h3>{article.title}
@@ -444,11 +444,11 @@ export default function Home() {
                       <div className="intro" dangerouslySetInnerHTML={createMarkup(article.intro)}/>
                       <div className="articleMainData">
                         <p>{formatDate(article.publishDate)}</p> •{" "}
-                        <Link href={`/profile/${article.author}`}>
+                        <Link href={`/profile/${author}`}>
                           {author}
                         </Link>
                       </div>
-                      <Link className="simpler" href={`/${article._id}`}>
+                      <Link className="simpler" href={`/${article.slug}`}>
                         lire l&apos;article.
                       </Link>
                       </div>
@@ -608,7 +608,6 @@ export default function Home() {
                           )}
                         </button>
                       </form>}
-                      
                       <div className="articleMainInfo">
                       <span className="articleCategory">{article.category}</span>
                         <h3>{article.title}
@@ -616,15 +615,14 @@ export default function Home() {
                       <div className="intro" dangerouslySetInnerHTML={createMarkup(article.intro)}/>
                       <div className="articleMainData">
                         <p>{formatDate(article.publishDate)}</p> •{" "}
-                        <Link href={`/profile/${article.author}`}>
+                        <Link href={`/profile/${author}`}>
                           {author}
                         </Link>
                       </div>
-                      <Link className="simpler" href={`/${article._id}`}>
+                      <Link className="simpler" href={`/${article.slug}`}>
                         lire l&apos;article.
                       </Link>
                       </div>
-                      
                     </div>
                   ))
                 ) : (

@@ -271,7 +271,7 @@ export default function SearchPage() {
                   <div className="articleMainData">
                     <p>{formatDate(article.publishDate)}</p>
                   </div>
-                  <Link className="simpler" href={`/${article._id}`}>Lire l&apos;article.</Link>
+                  <Link className="simpler" href={`/${article.slug}`}>Lire l&apos;article.</Link>
                 </div>
               </div>
             ))
@@ -362,7 +362,7 @@ export default function SearchPage() {
                   <div className="articleMainData">
                     <p>{formatDate(article.publishDate)}</p>
                   </div>
-                  <Link className="simpler" href={`/agora/${article._id}`}>Lire le post.</Link>
+                  <Link className="simpler" href={`/agora/${article.slug}`}>Lire le post.</Link>
                 </div>
               </div>
             ))

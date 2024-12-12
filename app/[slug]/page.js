@@ -7,7 +7,8 @@ import { useGlobalContext } from "../layout/GlobalContext";
 export default function ViewArticle({ params }) {
   const { userToken, isSubscribed, setIsSubscribed, userId, userUsername, createMarkup, formatDate, apiGateway, commentOrdering, setCommentOrdering, userRole, isAuthenticated } =
     useGlobalContext();
-  const { id } = params;
+    const { slug } = params;
+    const id = slug.split("-").pop();
   const [article, setArticle] = useState(null);
   const [author, setAuthor] = useState(null);
   const [comments, setComments] = useState([]);
@@ -491,7 +492,7 @@ export default function ViewArticle({ params }) {
         
         <div className="commentContent">
           <p>
-            <Link href={`/profile/${comment.author}`}>
+            <Link href={`/profile/${comment.authorUsername}`}>
               {comment.authorUsername}
             </Link>{" "}
             • {new Date(comment.publishDate).toLocaleDateString()}
@@ -858,7 +859,7 @@ export default function ViewArticle({ params }) {
                     <p>{formatDate(article.publishDate)}{article.publishDate !== article.lastModifiedDate
               ? ` (Modifié le ${formatDate(article.lastModifiedDate)})`
               : ""}</p> •{" "}
-                    <Link href={`/profile/${article.author}`}>{author}</Link> •{" "}
+                    <Link href={`/profile/${author}`}>{author}</Link> •{" "}
                     <p>
                       Lecture de {article.readingTime}{" "}
                       {article.readingTime <= 1 ? "minute" : "minutes"}
@@ -1138,11 +1139,11 @@ export default function ViewArticle({ params }) {
                       <div className="intro" dangerouslySetInnerHTML={createMarkup(article.intro)}/>
                       <div className="articleMainData">
                         <p>{formatDate(article.publishDate)}</p> •{" "}
-                        <Link href={`/profile/${article.author}`}>
+                        <Link href={`/profile/${author}`}>
                           {author}
                         </Link>
                       </div>
-                      <Link className="simpler" href={`/${article._id}`}>
+                      <Link className="simpler" href={`/${article.slug}`}>
                         lire l&apos;article.
                       </Link>
                       </div>

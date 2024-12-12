@@ -7,7 +7,7 @@ import { useGlobalContext } from "./GlobalContext";
 import { useEffect, useState } from "react";
 
 export default function Header() {
-  const { currentPath, isAuthenticated, userId, userRole, setIsAuthenticated, setUserRole, query, setQuery, navbarToggle, setNavbarToggle } = useGlobalContext();
+  const { currentPath, isAuthenticated, userRole, userUsername, setIsAuthenticated, setUserRole, query, setQuery, navbarToggle, setNavbarToggle } = useGlobalContext();
   const [localQuery, setLocalQuery] = useState(query);
   const [blogClassList, setBlogCLassList] = useState("link active");
   const [agoraClassList, setAgoraClassList] = useState("link");
@@ -63,11 +63,11 @@ export default function Header() {
   useEffect(() => {
     // Cette fonction sera appelée à chaque fois que isAuthenticated change
     if (isAuthenticated) {
-      setProfileLink(`/profile/${userId}`);
+      setProfileLink(`/profile/${userUsername}`);
     } else {
       setProfileLink("/login");
     }
-  }, [isAuthenticated, userId]);
+  }, [isAuthenticated, userUsername]);
 
   const handleLogoutSubmit = (e) => {
     e.preventDefault();

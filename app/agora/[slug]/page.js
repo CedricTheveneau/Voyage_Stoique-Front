@@ -7,7 +7,8 @@ import { useGlobalContext } from "../../layout/GlobalContext";
 export default function ViewPost({ params }) {
   const { userToken, isSubscribed, setIsSubscribed, userId, userUsername, createMarkup, formatDate, apiGateway, commentOrdering, setCommentOrdering, userRole, isAuthenticated } =
     useGlobalContext();
-  const { id } = params;
+  const { slug } = params;
+  const id = slug.split("-").pop();
   const [article, setArticle] = useState(null);
   const [comments, setComments] = useState([]);
   const [headings, setHeadings] = useState([]);
@@ -489,7 +490,7 @@ export default function ViewPost({ params }) {
         
         <div className="commentContent">
           <p>
-            <Link href={`/profile/${comment.author}`}>
+            <Link href={`/profile/${comment.authorUsername}`}>
               {comment.authorUsername}
             </Link>{" "}
             • {new Date(comment.publishDate).toLocaleDateString()}
@@ -818,7 +819,7 @@ export default function ViewPost({ params }) {
                     <p>{formatDate(article.publishDate)}{article.publishDate !== article.lastModifiedDate
               ? ` (Modifié le ${formatDate(article.lastModifiedDate)})`
               : ""}</p> •{" "}
-                    <Link href={`/profile/${article.author}`}>{article.authorUsername}</Link>
+                    <Link href={`/profile/${article.authorUsername}`}>{article.authorUsername}</Link>
                   </div>
                   <div className="secondLine">
                   <form onSubmit={handleUpvote}>

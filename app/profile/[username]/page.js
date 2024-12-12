@@ -20,7 +20,8 @@ export default function Profile({ params }) {
     setIsSubscribed,
     isAuthenticated, setIsAuthenticated, setUserRole
   } = useGlobalContext();
-  const { id } = params;
+  const [id, setId] = useState(null)
+  const { username } = params;
   const [user, setUser] = useState(null);
   const [userComments, setUserComments] = useState([]);
   const [userPublications, setUserPublications] = useState([]);
@@ -645,7 +646,7 @@ export default function Profile({ params }) {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch(`${apiGateway}/auth/${id}`, {
+        const response = await fetch(`${apiGateway}/auth/username/${username}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -658,13 +659,14 @@ export default function Profile({ params }) {
 
         const userData = await response.json();
         setUser(userData.user);
+        setId(userData.user._id);
       } catch (error) {
         setError(error.message);
       }
     };
 
     fetchUser();
-  }, [id, userToken]);
+  }, [username, userToken]);
 
   useEffect(() => {
     if (user) {
@@ -1165,7 +1167,7 @@ export default function Profile({ params }) {
                   <div className="articleMainData">
                     <p>{formatDate(article.publishDate)}</p>
                   </div>
-                  <Link className="simpler" href={`/${article._id}`}>
+                  <Link className="simpler" href={`/${article.slug}`}>
                     {user.role === "admin"
                       ? "Lire l'article."
                       : "Lire le post."}
@@ -1259,7 +1261,7 @@ export default function Profile({ params }) {
                   <div className="articleMainData">
                     <p>{formatDate(article.publishDate)}</p>
                   </div>
-                  <Link className="simpler" href={`/${article._id}`}>
+                  <Link className="simpler" href={`/${article.slug}`}>
                     {user.role === "admin"
                       ? "Lire l'article."
                       : "Lire le post."}
@@ -1362,8 +1364,8 @@ export default function Profile({ params }) {
                     className="simpler"
                     href={
                       user.role === "admin"
-                        ? `/${article._id}`
-                        : `/agora/${article._id}`
+                        ? `/${article.slug}`
+                        : `/agora/${article.slug}`
                     }
                   >
                     {user.role === "admin"
@@ -1582,7 +1584,7 @@ export default function Profile({ params }) {
                     <div className="articleMainData">
                       <p>{formatDate(post.publishDate)}</p>
                     </div>
-                    <Link className="simpler" href={`/agora/${post._id}`}>
+                    <Link className="simpler" href={`/agora/${post.slug}`}>
                       Lire le post.
                     </Link>
                     {isAuthenticated && userId === post.author && (
@@ -1787,7 +1789,7 @@ export default function Profile({ params }) {
                     <div className="articleMainData">
                       <p>{formatDate(post.publishDate)}</p>
                     </div>
-                    <Link className="simpler" href={`/agora/${post._id}`}>
+                    <Link className="simpler" href={`/agora/${post.slug}`}>
                       Lire le post.
                     </Link>
                   </div>
@@ -1883,7 +1885,7 @@ export default function Profile({ params }) {
                     <div className="articleMainData">
                       <p>{formatDate(post.publishDate)}</p>
                     </div>
-                    <Link className="simpler" href={`/agora/${post._id}`}>
+                    <Link className="simpler" href={`/agora/${post.slug}`}>
                       Lire le post.
                     </Link>
                   </div>
